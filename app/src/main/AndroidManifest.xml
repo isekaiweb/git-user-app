@@ -16,7 +16,6 @@
         android:theme="@style/splashScreenTheme"
         android:fullBackupContent="true"
         tools:ignore="AllowBackup">
-        <activity android:name=".ui.detail.DetailActivity" />
         <activity
             android:name=".ui.GitMainActivity"
 

@@ -6,8 +6,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.activity_git_main.view.*
 import submission.dicoding.fundamental.gituser.R
 import submission.dicoding.fundamental.gituser.databinding.ActivityGitMainBinding
+import submission.dicoding.fundamental.gituser.other.Function.visibilityView
 
 
 @AndroidEntryPoint
@@ -35,15 +37,27 @@ class GitMainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.bottom_menu, menu)
-       binding.menuBottom.setupWithNavController(menu!!, navController)
+        binding.menuBottom.setupWithNavController(menu!!, navController)
 
         menu.findItem(R.id.profileFragment)?.isVisible = false
         menu.findItem(R.id.searchFragment)?.isVisible = false
         menu.findItem(R.id.favoriteFragment)?.isVisible = false
+
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            visibilityView(
+                binding.menuBottom,
+                when (destination.id) {
+                    R.id.setupFragment -> false
+                    else -> true
+                }
+            )
+
+        }
+
+
         return true
     }
-
-
 
 
 }

@@ -136,7 +136,7 @@ class SearchFragment : Fragment() {
     }
 
     private fun moveToDetail(username: String) {
-       Navigation.findNavController(requireView()).navigate(
+       findNavController().navigate(
             SearchFragmentDirections.actionSearchFragmentToDetailFragment(username)
         )
     }

@@ -9,10 +9,11 @@ import submission.dicoding.fundamental.gituser.ui.detail.FollowersFollowingFragm
 import submission.dicoding.fundamental.gituser.ui.detail.ReposFragment
 import java.util.*
 
-class ViewPagerAdapter
+class DetailPagerAdapter
     (
     activity: AppCompatActivity,
-    private val userDetail: UserDetail
+    private val userDetail: UserDetail,
+    private val currDestination: String,
 ) : FragmentStateAdapter(activity) {
 
     private val tabTitle = activity.resources.getStringArray(R.array.tab_title)
@@ -21,9 +22,9 @@ class ViewPagerAdapter
         var fragment: Fragment? = null
         val title = tabTitle[pos].toLowerCase(Locale.ROOT)
         when (pos) {
-            0 -> fragment = ReposFragment.setUpData(userDetail, title)
-            1 -> fragment = FollowersFollowingFragment.setUpData(userDetail, title)
-            2 -> fragment = FollowersFollowingFragment.setUpData(userDetail, title)
+            0 -> fragment = ReposFragment.setUpData(userDetail, title, currDestination)
+            1 -> fragment = FollowersFollowingFragment.setUpData(userDetail, title, currDestination)
+            2 -> fragment = FollowersFollowingFragment.setUpData(userDetail, title, currDestination)
         }
         return fragment as Fragment
     }

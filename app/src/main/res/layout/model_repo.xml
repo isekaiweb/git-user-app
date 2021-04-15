@@ -2,14 +2,15 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container_repo_list"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/paddingNormal"
     android:background="@drawable/bg_rounded_for_repo"
     android:clickable="true"
+    android:focusable="true"
     android:foreground="@drawable/ripple_for_third_black"
-    android:padding="@dimen/spaceSpecial"
-    android:focusable="true">
+    android:padding="@dimen/spaceSpecial">
 
 
     <TextView
@@ -51,8 +52,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:textSize="@dimen/text_detail_repo"
         android:textColor="@color/secondary_white"
+        android:textSize="@dimen/text_detail_repo"
         app:layout_constraintBottom_toBottomOf="@+id/tv_star"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_language"
@@ -110,7 +111,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         tools:text="2000kb" />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

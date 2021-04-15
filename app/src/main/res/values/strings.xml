@@ -21,6 +21,10 @@
     <string name="something_wrong">something wrong</string>
     <string name="try_again">Try Again</string>
     <string name="no_data_found">No data found!</string>
+    <string name="welcome">welcome</string>
+    <string name="username">username</string>
+    <string name="text_welcome">Enter your github username</string>
+    <string name="txt_continue">continue</string>
     <string-array name="tab_title">
         <item>Repos</item>
         <item>Followers</item>

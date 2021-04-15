@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary_black">
+
+    <TextView
+        android:id="@+id/title_not_found"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Your username not found!"
+        android:textColor="@color/white"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline4" />
+
+    <TextView
+        android:id="@+id/tv_second_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/paddingNormal"
+        android:text="Please Enter Again"
+        android:textColor="@color/secondary_white"
+        android:textSize="@dimen/usernameDetail"
+        app:layout_constraintEnd_toEndOf="@+id/title_not_found"
+        app:layout_constraintStart_toStartOf="@+id/title_not_found"
+        app:layout_constraintTop_toBottomOf="@+id/title_not_found" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/et_name_profile"
+        android:layout_width="@dimen/sizeAuto"
+        android:layout_height="wrap_content"
+        android:hint="@string/username"
+        android:layout_marginTop="@dimen/spaceSpecial"
+        android:inputType="textPersonName"
+        android:textColor="@color/white"
+        android:textColorHighlight="@color/secondary_white"
+        android:textColorHint="@color/secondary_white"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="@+id/title_not_found"
+        app:layout_constraintStart_toStartOf="@+id/title_not_found"
+        app:layout_constraintTop_toBottomOf="@+id/tv_second_title" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_continue_profile"
+        android:layout_width="@dimen/sizeAuto"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_rounded_black_for_btn"
+        android:foreground="?attr/selectableItemBackground"
+        android:paddingHorizontal="@dimen/paddingMax"
+        android:text="@string/txt_continue"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="@+id/et_name_profile"
+        app:layout_constraintStart_toStartOf="@+id/et_name_profile"
+        app:layout_constraintTop_toBottomOf="@+id/et_name_profile" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="209dp" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

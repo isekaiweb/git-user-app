@@ -4,6 +4,10 @@ import android.icu.text.CompactDecimalFormat
 import android.view.View
 import android.widget.TextView
 import androidx.core.view.isVisible
+import androidx.navigation.Navigation
+import submission.dicoding.fundamental.gituser.other.Constants.Companion.DESTINATION_PROFILE
+import submission.dicoding.fundamental.gituser.ui.detail.DetailFragmentDirections
+import submission.dicoding.fundamental.gituser.ui.profile.ProfileFragmentDirections
 import java.util.*
 import kotlin.math.ln
 import kotlin.math.pow
@@ -52,6 +56,18 @@ internal object Function {
             return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
         }
         return false
+    }
+
+    fun openInBrowser(url: String, requireView: View, destination: String) {
+
+        val moveTo = if (destination == DESTINATION_PROFILE) {
+            ProfileFragmentDirections.actionProfileFragmentToWebViewFragment(url)
+        } else {
+            DetailFragmentDirections.actionDetailFragmentToWebViewFragment(url)
+        }
+        Navigation.findNavController(requireView).navigate(moveTo)
+
+
     }
 
 }

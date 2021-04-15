@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources >
-    <dimen name="nameSize">20sp</dimen>
+    <dimen name="nameSize">24sp</dimen>
     <dimen name="avatarSizeHome">85dp</dimen>
     <dimen name="strokeSizeAvatarHome">3dp</dimen>
     <dimen name="avatarSizeDetail">136dp</dimen>

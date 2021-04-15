@@ -8,8 +8,8 @@
         android:id="@+id/favoriteFragment"
         android:icon="@drawable/ic_heart_false"
         android:title="@string/favorite" />
-<!--    <item-->
-<!--        android:id="@+id/profileFragment"-->
-<!--        android:icon="@drawable/ic_user"-->
-<!--        android:title="@string/profile" />-->
+    <item
+        android:id="@+id/profileFragment"
+        android:icon="@drawable/ic_user"
+        android:title="@string/profile" />
 </menu>

@@ -7,17 +7,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import submission.dicoding.fundamental.gituser.api.Resource
 import submission.dicoding.fundamental.gituser.databinding.FragmentListBinding
 import submission.dicoding.fundamental.gituser.models.UserDetail
+import submission.dicoding.fundamental.gituser.other.Constants.Companion.CONVERSION_ERROR
+import submission.dicoding.fundamental.gituser.other.Constants.Companion.DESTINATION_PROFILE
 import submission.dicoding.fundamental.gituser.other.Constants.Companion.EXTRA_ACTION
+import submission.dicoding.fundamental.gituser.other.Constants.Companion.EXTRA_DESTINATION
 import submission.dicoding.fundamental.gituser.other.Constants.Companion.EXTRA_USER
+import submission.dicoding.fundamental.gituser.other.Constants.Companion.NETWORK_FAILURE
+import submission.dicoding.fundamental.gituser.other.Constants.Companion.NO_INTERNET_CONNECTION
 import submission.dicoding.fundamental.gituser.other.Function.visibilityView
 import submission.dicoding.fundamental.gituser.ui.adapters.UserAdapter
-import submission.dicoding.fundamental.gituser.ui.search.SearchFragmentDirections
+import submission.dicoding.fundamental.gituser.ui.profile.ProfileFragmentDirections
 
 
 @AndroidEntryPoint
@@ -28,9 +32,14 @@ class FollowersFollowingFragment : Fragment() {
     private val viewModel by viewModels<DetailViewModel>()
 
     companion object {
-        fun setUpData(userDetail: UserDetail?, action: String): FollowersFollowingFragment {
+        fun setUpData(
+            userDetail: UserDetail?,
+            action: String,
+            currDestination: String?
+        ): FollowersFollowingFragment {
             val fragment = FollowersFollowingFragment()
             Bundle().also {
+                it.putString(EXTRA_DESTINATION, currDestination)
                 it.putParcelable(EXTRA_USER, userDetail)
                 it.putString(EXTRA_ACTION, action)
                 fragment.arguments = it
@@ -79,7 +88,14 @@ class FollowersFollowingFragment : Fragment() {
                     }
                     is Resource.Error -> {
                         response.message?.let { message ->
-                            Log.e("RESPONSE", message)
+                            when (message) {
+                                CONVERSION_ERROR -> Log.e("ERROR", CONVERSION_ERROR)
+                                NETWORK_FAILURE -> Log.e("ERROR", NETWORK_FAILURE)
+                                NO_INTERNET_CONNECTION -> Log.e("ERROR", NO_INTERNET_CONNECTION)
+                                else -> {
+                                    Log.e("ERROR", "ELSE")
+                                }
+                            }
                         }
                         visibilityView(layoutLoading, false)
                         visibilityView(recyclerView, false)
@@ -116,9 +132,15 @@ class FollowersFollowingFragment : Fragment() {
 
 
     private fun moveToDetail(username: String) {
-        Navigation.findNavController(requireView()).navigate(
+        val destination = arguments?.getString(EXTRA_DESTINATION)
+        val moveTo = if (destination == DESTINATION_PROFILE) {
+            ProfileFragmentDirections.actionProfileFragmentToDetailFragment(username)
+        } else {
             DetailFragmentDirections.actionDetailFragmentSelf(username)
-        )
+        }
+
+        findNavController().navigate(moveTo)
+
     }
 
     override fun onDestroy() {

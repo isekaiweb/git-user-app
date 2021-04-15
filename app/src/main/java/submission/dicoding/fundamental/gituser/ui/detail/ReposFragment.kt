@@ -12,6 +12,8 @@ import submission.dicoding.fundamental.gituser.api.Resource
 import submission.dicoding.fundamental.gituser.databinding.FragmentRepoBinding
 import submission.dicoding.fundamental.gituser.models.UserDetail
 import submission.dicoding.fundamental.gituser.other.Constants
+import submission.dicoding.fundamental.gituser.other.Constants.Companion.EXTRA_DESTINATION
+import submission.dicoding.fundamental.gituser.other.Function.openInBrowser
 import submission.dicoding.fundamental.gituser.other.Function.visibilityView
 import submission.dicoding.fundamental.gituser.ui.adapters.ReposAdapter
 
@@ -23,9 +25,14 @@ class ReposFragment : Fragment() {
     private val viewModel by viewModels<DetailViewModel>()
 
     companion object {
-        fun setUpData(userDetail: UserDetail?, action: String): ReposFragment {
+        fun setUpData(
+            userDetail: UserDetail?,
+            action: String,
+            currDestination: String?
+        ): ReposFragment {
             val fragment = ReposFragment()
             Bundle().also {
+                it.putString(EXTRA_DESTINATION, currDestination)
                 it.putParcelable(Constants.EXTRA_USER, userDetail)
                 it.putString(Constants.EXTRA_ACTION, action)
                 fragment.arguments = it
@@ -101,14 +108,17 @@ class ReposFragment : Fragment() {
 
 
     private fun setupRecyclerView() {
+        val destination = arguments?.getString(EXTRA_DESTINATION)
         binding?.rvRepo?.apply {
-            repoAdapter = ReposAdapter()
+            repoAdapter = ReposAdapter {
+                openInBrowser(it, requireView(), destination!!)
+            }
             setHasFixedSize(false)
             adapter = repoAdapter
         }
 
-
     }
+
 
     override fun onDestroy() {
         super.onDestroy()

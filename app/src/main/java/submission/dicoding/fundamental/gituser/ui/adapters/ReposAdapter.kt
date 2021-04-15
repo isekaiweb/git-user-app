@@ -11,7 +11,8 @@ import submission.dicoding.fundamental.gituser.other.Function.converterNumber
 import submission.dicoding.fundamental.gituser.other.Function.converterSize
 import submission.dicoding.fundamental.gituser.other.Function.setVisibilityView
 
-class ReposAdapter : RecyclerView.Adapter<ReposAdapter.ReposViewHolder>() {
+class ReposAdapter(private val listener: (String) -> Unit) :
+    RecyclerView.Adapter<ReposAdapter.ReposViewHolder>() {
 
     private val differCallback = object : DiffUtil.ItemCallback<UserDetail>() {
         override fun areItemsTheSame(oldItem: UserDetail, newItem: UserDetail): Boolean {
@@ -39,6 +40,12 @@ class ReposAdapter : RecyclerView.Adapter<ReposAdapter.ReposViewHolder>() {
                     setVisibilityView(stargazers_count, tvStar)
                     setVisibilityView(watchers_count, tvWatcher)
                     setVisibilityView(size?.let { converterSize(it) }, tvSize)
+
+                    html_url?.let { url ->
+                        containerRepoList.setOnClickListener {
+                            listener(url)
+                        }
+                    }
                 }
             }
         }

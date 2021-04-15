@@ -1,6 +1,7 @@
 package submission.dicoding.fundamental.gituser.di
 
 import android.content.Context
+import android.content.SharedPreferences
 import androidx.room.Room
 import submission.dicoding.fundamental.gituser.api.GitHubAPI
 import submission.dicoding.fundamental.gituser.db.GitHubUserDatabase
@@ -13,6 +14,9 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import submission.dicoding.fundamental.gituser.other.Constants.Companion.KEY_FIRST_TIME_TOGGLE
+import submission.dicoding.fundamental.gituser.other.Constants.Companion.KEY_USERNAME
+import submission.dicoding.fundamental.gituser.other.Constants.Companion.SHARED_PREFERENCES_NAME
 import javax.inject.Singleton
 
 @Module
@@ -47,5 +51,21 @@ internal object AppModule {
     @Provides
     @Singleton
     fun provideMovieDao(db: GitHubUserDatabase) = db.getUserDao()
+
+
+    @Singleton
+    @Provides
+    fun provideSharedPreferences(@ApplicationContext app: Context): SharedPreferences =
+        app.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
+
+    @Singleton
+    @Provides
+    fun provideName(sharedPref: SharedPreferences) =
+        sharedPref.getString(KEY_USERNAME, "") ?: ""
+
+    @Singleton
+    @Provides
+    fun provideFirstTimeToggle(sharedPref: SharedPreferences) =
+        sharedPref.getBoolean(KEY_FIRST_TIME_TOGGLE, true)
 
 }

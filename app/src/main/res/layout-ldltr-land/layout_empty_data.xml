@@ -5,31 +5,23 @@
     android:layout_height="match_parent"
     android:background="@color/primary_black">
 
+
     <ImageView
-        android:id="@+id/img_not_found"
-        android:layout_width="240dp"
-        android:layout_height="240dp"
-
+        android:id="@+id/img_empty"
+        android:layout_width="210dp"
+        android:layout_height="210dp"
         android:contentDescription="@string/no_data_found"
-        android:src="@drawable/img_not_found"
-        app:layout_constraintBottom_toTopOf="@+id/guideline3"
+        android:src="@drawable/img_empty"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline2" />
+        app:layout_constraintTop_toTopOf="@+id/guideline6" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
+        android:id="@+id/guideline6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_end="655dp" />
+        app:layout_constraintGuide_begin="100dp" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="532dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
