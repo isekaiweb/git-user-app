@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.facebook.shimmer.ShimmerFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:shimmer="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    shimmer:duration="700"
+    shimmer:shimmer_auto_start="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/include2"
+            layout="@layout/partial_loading_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            shimmer:layout_constraintEnd_toEndOf="parent"
+            shimmer:layout_constraintStart_toStartOf="parent"
+            shimmer:layout_constraintTop_toTopOf="parent" />
+
+        <include
+            android:id="@+id/include3"
+            layout="@layout/partial_loading_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            shimmer:layout_constraintEnd_toEndOf="parent"
+            shimmer:layout_constraintStart_toStartOf="parent"
+            shimmer:layout_constraintTop_toBottomOf="@+id/include2" />
+
+        <include
+            android:id="@+id/include4"
+            layout="@layout/partial_loading_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            shimmer:layout_constraintEnd_toEndOf="parent"
+            shimmer:layout_constraintStart_toStartOf="parent"
+            shimmer:layout_constraintTop_toBottomOf="@+id/include3" />
+
+        <include
+            android:id="@+id/include5"
+            layout="@layout/partial_loading_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            shimmer:layout_constraintEnd_toEndOf="parent"
+            shimmer:layout_constraintStart_toStartOf="parent"
+            shimmer:layout_constraintTop_toBottomOf="@+id/include4" />
+        <include
+            android:id="@+id/include6"
+            layout="@layout/partial_loading_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            shimmer:layout_constraintEnd_toEndOf="parent"
+            shimmer:layout_constraintStart_toStartOf="parent"
+            shimmer:layout_constraintTop_toBottomOf="@+id/include5" />
+        <include
+            android:id="@+id/include7"
+            layout="@layout/partial_loading_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            shimmer:layout_constraintEnd_toEndOf="parent"
+            shimmer:layout_constraintStart_toStartOf="parent"
+            shimmer:layout_constraintTop_toBottomOf="@+id/include6" />
+        <include
+            android:id="@+id/include8"
+            layout="@layout/partial_loading_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            shimmer:layout_constraintEnd_toEndOf="parent"
+            shimmer:layout_constraintStart_toStartOf="parent"
+            shimmer:layout_constraintTop_toBottomOf="@+id/include7" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</com.facebook.shimmer.ShimmerFrameLayout>

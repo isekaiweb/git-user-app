@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/paddingNormal"
+    android:background="@drawable/bg_rounded_for_repo"
+    android:clickable="true"
+    android:foreground="@drawable/ripple_for_third_black"
+    android:padding="@dimen/spaceSpecial"
+    android:focusable="true">
+
+
+    <TextView
+        android:id="@+id/tv_title_repo"
+        android:layout_width="@dimen/sizeAuto"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@string/app_name" />
+
+    <TextView
+        android:id="@+id/tv_description"
+        android:layout_width="@dimen/sizeAuto"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spaceMax"
+        android:textColor="@color/secondary_white"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title_repo"
+        tools:text="this apps it's about to display some recipe using data local" />
+
+    <TextView
+        android:id="@+id/tv_language"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/green_leaf"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_description"
+        tools:text="Javascript" />
+
+    <TextView
+        android:id="@+id/tv_branch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textSize="@dimen/text_detail_repo"
+        android:textColor="@color/secondary_white"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_star"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_language"
+        tools:text="master" />
+
+    <TextView
+        android:id="@+id/tv_star"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spaceMax"
+        android:drawablePadding="@dimen/paddingMin"
+        android:textColor="@color/secondary_white"
+        android:textSize="@dimen/text_detail_repo"
+        app:drawableStartCompat="@drawable/ic_star"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_watcher"
+        app:layout_constraintStart_toEndOf="@+id/tv_branch"
+        app:layout_constraintTop_toTopOf="@+id/tv_watcher"
+        tools:text="1K" />
+
+    <TextView
+        android:id="@+id/tv_watcher"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spaceMax"
+        android:drawablePadding="@dimen/paddingMin"
+        android:textColor="@color/secondary_white"
+        android:textSize="@dimen/text_detail_repo"
+        app:drawableStartCompat="@drawable/ic_eye"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_fork"
+        app:layout_constraintStart_toEndOf="@+id/tv_star"
+        app:layout_constraintTop_toTopOf="@+id/tv_fork"
+        tools:text="19" />
+
+
+    <TextView
+        android:id="@+id/tv_fork"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spaceMax"
+
+        android:textColor="@color/secondary_white"
+        android:textSize="@dimen/text_detail_repo"
+        app:drawableStartCompat="@drawable/ic_fork"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_size"
+        app:layout_constraintStart_toEndOf="@+id/tv_watcher"
+        app:layout_constraintTop_toTopOf="@+id/tv_size"
+        tools:text="19" />
+
+    <TextView
+        android:id="@+id/tv_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/secondary_white"
+        android:textSize="@dimen/text_detail_repo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="2000kb" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

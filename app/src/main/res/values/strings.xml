@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">GitUser</string>
+    <string name="dummyUsername">JakeWharton</string>
+    <string name="dummy_name">Jake Wharton</string>
+    <string name="dummy_company">Google, inc</string>
+    <string name="dummy_location">California</string>
+    <string name="title_repository">Repository</string>
+    <string name="title_toolbar">GitHub User</string>
+    <string name="back">arrow button</string>
+    <string name="search">Search</string>
+    <string name="favorite">Favorite</string>
+    <string name="profile">Profile</string>
+    <string name="btn_github">open in github</string>
+    <string name="more">… more</string>
+    <string name="less">less</string>
+    <string name="repo">repo</string>
+    <string name="image">image</string>
+    <string name="hint_search">type their username</string>
+    <string name="title_favorite_fragment">Your Favorite user</string>
+    <string name="title_fragment_search">Find Your Favorite user</string>
+    <string name="something_wrong">something wrong</string>
+    <string name="try_again">Try Again</string>
+    <string name="no_data_found">No data found!</string>
+    <string-array name="tab_title">
+        <item>Repos</item>
+        <item>Followers</item>
+        <item>Following</item>
+    </string-array>
+</resources>

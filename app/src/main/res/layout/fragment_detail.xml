@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary_black"
+    tools:context=".ui.detail.DetailFragment">
+
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/root_appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/primary_black"
+            app:contentScrim="@color/primary_black"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:title=" ">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/container_item_in_collapseBar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="?attr/actionBarSize"
+                android:padding="@dimen/spaceSpecial">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/img_avatarDetail"
+                    style="@style/avatar.detail"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_name_detail"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_name_detail"
+                    tools:src="@tools:sample/avatars" />
+
+                <TextView
+                    android:id="@+id/tv_name_detail"
+                    android:layout_width="@dimen/sizeAuto"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spaceMax"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/nameSize"
+                    android:textStyle="bold"
+                    android:translationY="-30dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/btn_github"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/img_avatarDetail"
+                    app:layout_constraintTop_toTopOf="@+id/btn_github"
+                    tools:text="@string/dummy_name" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_github"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="@dimen/spaceMax"
+                    android:background="@drawable/bg_rounded_black_for_btn"
+                    android:paddingHorizontal="@dimen/paddingMax"
+                    android:text="@string/btn_github"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/usernameDetail"
+                    android:translationY="-25dp"
+                    app:layout_constraintStart_toEndOf="@+id/img_avatarDetail"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_name_detail" />
+
+                <TextView
+                    android:id="@+id/tv_company"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginTop="5dp"
+                    android:drawablePadding="@dimen/paddingNormal"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/detailInfoUser"
+                    app:drawableStartCompat="@drawable/ic_company"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/img_avatarDetail"
+                    tools:text="@string/dummy_company" />
+
+                <TextView
+                    android:id="@+id/tv_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/sizeAuto"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginTop="5dp"
+                    android:drawablePadding="@dimen/paddingNormal"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/detailInfoUser"
+                    app:drawableStartCompat="@drawable/ic_location"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_company"
+                    tools:text="@string/dummy_location" />
+
+                <TextView
+                    android:id="@+id/btn_more"
+                    android:layout_width="@dimen/sizeAuto"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginStart="@dimen/paddingNormal"
+                    android:text="@string/more"
+                    android:textColor="@color/secondary_white"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_location"
+                    app:layout_constraintStart_toEndOf="@+id/tv_location"
+                    app:layout_constraintTop_toTopOf="@+id/tv_location" />
+
+
+                <net.cachapa.expandablelayout.ExpandableLayout
+                    android:id="@+id/layout_collapse"
+                    android:layout_width="match_parent"
+                    android:layout_marginStart="6dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/paddingNormal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_location">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_email"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="@dimen/paddingNormal"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/detailInfoUser"
+                            app:drawableStartCompat="@drawable/ic_email"
+                            tools:text="dummy@dummymail.com" />
+
+                        <TextView
+                            android:id="@+id/tv_blog"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/spaceMax"
+                            android:textColor="@color/blue_sky"
+                            android:textSize="@dimen/detailInfoUser"
+                            tools:text="www.dummy.blog.co.id" />
+
+                    </LinearLayout>
+                </net.cachapa.expandablelayout.ExpandableLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/primary_black"
+                app:layout_collapseMode="pin"
+                app:navigationIcon="@drawable/ic_left_arrow">
+
+                <TextView
+                    android:id="@+id/tv_title_toolbar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/title_fragment"
+                    android:translationX="-20dp"
+                    tools:text="@string/dummyUsername" />
+            </androidx.appcompat.widget.Toolbar>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/paddingMax"
+            android:background="@color/primary_black"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:tabGravity="fill"
+            app:tabIndicatorColor="@color/white"
+            app:tabIndicatorFullWidth="true"
+            app:tabMode="fixed"
+            app:tabRippleColor="@color/ripple_black"
+            app:tabTextAppearance="@style/TextTabLayout"
+            app:tabTextColor="@color/white" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    <include
+        android:id="@+id/layout_loading_detail"
+        layout="@layout/container_loading_detail" />
+
+    <include android:id="@+id/layout_btn_favorite"
+        layout="@layout/layout_btn_favorite"
+        />
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
