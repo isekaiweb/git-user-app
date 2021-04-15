@@ -136,38 +136,9 @@ class SearchFragment : Fragment() {
     }
 
     private fun moveToDetail(username: String) {
-//        val detailFragment = DetailFragment()
-//        val args = Bundle()
-//        args.putString(EXTRA_USERNAME, username)
-//        detailFragment.arguments = args
-//
-//        requireParentFragment().childFragmentManager.commit {
-//            setCustomAnimations(
-//                R.anim.slide_in_right,
-//                R.anim.slide_out_left,
-//                R.anim.slide_in_left,
-//                R.anim.slide_out_right
-//            )
-//            replace(R.id.fragment_container, detailFragment)
-//            addToBackStack(null)
-//        }
-
        Navigation.findNavController(requireView()).navigate(
             SearchFragmentDirections.actionSearchFragmentToDetailFragment(username)
         )
-
-
-//        Intent(requireActivity(), DetailActivity::class.java).run {
-//            putExtra(EXTRA_USERNAME, username)
-//            requireActivity().startActivity(this)
-//            ActivityOptions.makeCustomAnimation(
-//               requireContext(),
-//                R.anim.slide_in_right,
-//                R.anim.slide_out_left,
-//            )
-//        }
-
-
     }
 
 

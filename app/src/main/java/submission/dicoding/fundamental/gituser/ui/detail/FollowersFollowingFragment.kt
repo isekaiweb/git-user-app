@@ -116,32 +116,9 @@ class FollowersFollowingFragment : Fragment() {
 
 
     private fun moveToDetail(username: String) {
-//        val detailFragment = DetailFragment()
-//        val args = Bundle()
-//        args.putString(EXTRA_USERNAME, username)
-//        detailFragment.arguments = args
-//
-//        requireActivity().supportFragmentManager
-//            .commit {
-//                setCustomAnimations(
-//                    R.anim.slide_in_right,
-//                    R.anim.slide_out_left,
-//                    R.anim.slide_in_left,
-//                    R.anim.slide_out_right
-//                )
-//                replace(R.id.fragment_container, detailFragment)
-//                addToBackStack(null)
-//            }
-
         Navigation.findNavController(requireView()).navigate(
             DetailFragmentDirections.actionDetailFragmentSelf(username)
         )
-
-
-//        Intent(requireActivity(), DetailActivity::class.java).run {
-//            putExtra(EXTRA_USERNAME, username)
-//            requireActivity().startActivity(this)
-//        }
     }
 
     override fun onDestroy() {
