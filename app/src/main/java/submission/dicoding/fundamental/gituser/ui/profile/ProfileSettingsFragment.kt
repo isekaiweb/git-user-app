@@ -1,6 +1,7 @@
 package submission.dicoding.fundamental.gituser.ui.profile
 
 import android.content.SharedPreferences
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -82,7 +83,7 @@ class ProfileSettingsFragment : Fragment() {
                 val checked = if (isChecked) {
                     alarmReceiver.setRepeatingAlarm(
                         requireActivity(),
-                        "12:12",
+                        "09:00",
                         "Github Reminder", this
                     )
                     true
@@ -97,6 +98,7 @@ class ProfileSettingsFragment : Fragment() {
         }
 
     }
+
 
     override fun onPause() {
         findNavController().navigate(R.id.action_global_profileFragment)

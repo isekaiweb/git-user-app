@@ -1,6 +1,7 @@
 package submission.dicoding.fundamental.consumerapp
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
@@ -12,6 +13,7 @@ class ConsumerActivity : AppCompatActivity() {
     private val viewModel by viewModels<ConsumerViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.Theme_GitUser)
         super.onCreate(savedInstanceState)
         binding = ActivityConsumerBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -25,6 +27,8 @@ class ConsumerActivity : AppCompatActivity() {
         viewModel.setConsumer(this)
         viewModel.getConsumer().observe(this, { response ->
             consumerAdapter.differ.submitList(response)
+            binding.layoutEmpty.root.visibility =
+                if (consumerAdapter.differ.currentList.size < 1) View.VISIBLE else View.GONE
         })
 
     }

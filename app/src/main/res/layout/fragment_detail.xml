@@ -161,6 +161,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="@color/primary_black"
+                app:layout_collapseMode="pin"
                 app:navigationIcon="@drawable/ic_left_arrow">
 
                 <TextView

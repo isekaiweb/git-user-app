@@ -30,4 +30,15 @@
         tools:listitem="@layout/model_user_fav_list"
         tools:spanCount="2" />
 
+    <include
+        android:id="@+id/layout_empty"
+        layout="@layout/layout_empty_data"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/sizeAuto"
+        tools:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/rv_consumer" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
