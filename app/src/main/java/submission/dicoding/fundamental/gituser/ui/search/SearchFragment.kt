@@ -19,6 +19,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import submission.dicoding.fundamental.gituser.api.Resource
 import submission.dicoding.fundamental.gituser.databinding.FragmentSearchBinding
+import submission.dicoding.fundamental.gituser.other.Constants
 import submission.dicoding.fundamental.gituser.other.Constants.Companion.DELAY_CLEAR_FOCUS
 import submission.dicoding.fundamental.gituser.other.Constants.Companion.DELAY_SEARCH
 import submission.dicoding.fundamental.gituser.other.Function.visibilityView
@@ -68,7 +69,20 @@ class SearchFragment : Fragment() {
                 }
                 is Resource.Error -> {
                     response.message?.let { message ->
-                        Log.e("RESPONSE", message)
+                        when (message) {
+                            Constants.CONVERSION_ERROR -> Log.e("ERROR",
+                                Constants.CONVERSION_ERROR
+                            )
+                            Constants.NETWORK_FAILURE -> Log.e("ERROR",
+                                Constants.NETWORK_FAILURE
+                            )
+                            Constants.NO_INTERNET_CONNECTION -> Log.e("ERROR",
+                                Constants.NO_INTERNET_CONNECTION
+                            )
+                            else -> {
+                                Log.e("ERROR", "SOMETHING WRONG")
+                            }
+                        }
                     }
                     visibilityView(layoutLoading, false)
                     visibilityView(recyclerView, false)

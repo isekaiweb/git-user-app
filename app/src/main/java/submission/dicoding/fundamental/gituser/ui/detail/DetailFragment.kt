@@ -80,7 +80,7 @@ class DetailFragment : Fragment() {
                                 NETWORK_FAILURE -> Log.e("ERROR", NETWORK_FAILURE)
                                 NO_INTERNET_CONNECTION -> Log.e("ERROR", NO_INTERNET_CONNECTION)
                                 else -> {
-                                    Log.e("ERROR", "ELSE")
+                                    Log.e("ERROR", "SOMETHING WRONG")
                                 }
                             }
                         }

@@ -80,10 +80,23 @@ class ReposFragment : Fragment() {
                     }
                     is Resource.Error -> {
                         response.message?.let { message ->
-                            Log.e("RESPONSE", message)
-                            visibilityView(layoutLoading, false)
-                            visibilityView(recyclerView, false)
+                            when (message) {
+                                Constants.CONVERSION_ERROR -> Log.e("ERROR",
+                                    Constants.CONVERSION_ERROR
+                                )
+                                Constants.NETWORK_FAILURE -> Log.e("ERROR",
+                                    Constants.NETWORK_FAILURE
+                                )
+                                Constants.NO_INTERNET_CONNECTION -> Log.e("ERROR",
+                                    Constants.NO_INTERNET_CONNECTION
+                                )
+                                else -> {
+                                    Log.e("ERROR", "SOMETHING WRONG")
+                                }
+                            }
                         }
+                        visibilityView(layoutLoading, false)
+                        visibilityView(recyclerView, false)
                     }
                     is Resource.Loading -> {
                         visibilityView(recyclerView, false)

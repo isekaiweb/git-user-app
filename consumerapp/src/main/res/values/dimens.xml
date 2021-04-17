@@ -1,22 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources >
     <dimen name="nameSize">24sp</dimen>
-    <dimen name="avatarSizeHome">85dp</dimen>
-    <dimen name="strokeSizeAvatarHome">3dp</dimen>
     <dimen name="avatarSizeDetail">136dp</dimen>
     <dimen name="strokeSizeAvatarDetail">4dp</dimen>
     <dimen name="spaceMax">10dp</dimen>
     <dimen name="spaceSpecial">20dp</dimen>
     <dimen name="sizeAuto">0dp</dimen>
-    <dimen name="strokeField">2.6dp</dimen>
-    <dimen name="iconField">14dp</dimen>
-    <dimen name="paddingMax">8dp</dimen>
     <dimen name="paddingNormal">5dp</dimen>
     <dimen name="paddingMin">2dp</dimen>
     <dimen name="usernameDetail">18sp</dimen>
-    <dimen name="detailInfoUser">15sp</dimen>
-    <dimen name="spaceForToolbar">30dp</dimen>
-    <dimen name="icon_detail_repo">14sp</dimen>
-    <dimen name="text_detail_repo">14sp</dimen>
     <dimen name="title_fragment">24sp</dimen>
 </resources>
