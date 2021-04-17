@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">ConsumerApp</string>
+    <string name="title_favorite_fragment">Your Favorite user</string>
+    <string name="image">image</string>
+</resources>

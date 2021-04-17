@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="white">#FFFFFFFF</color>
+    <color name="primary_black">#2E2E2D</color>
+    <color name="secondary_black">#474747</color>
+    <color name="secondary_white">#DFDEDE</color>
+    <color name="ripple_black">#1E1E1E</color>
+    <color name="secondary_ripple_black">#292929</color>
+    <color name="ripple_black_op_50">#80292929</color>
+    <color name="third_black">#9E474747</color>
+    <color name="red_heart">#E23733</color>
+    <color name="coral">#F0883E</color>
+    <color name="blue_sky">#388BFC</color>
+    <color name="green_leaf">#3FB950</color>
+    <color name="transparent">#003FB950</color>
+    <color name="passive">#8FDFDEDE</color>
+</resources>

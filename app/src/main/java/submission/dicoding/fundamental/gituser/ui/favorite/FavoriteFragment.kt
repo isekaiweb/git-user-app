@@ -6,8 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
@@ -15,13 +13,13 @@ import submission.dicoding.fundamental.gituser.databinding.FragmentFavoriteBindi
 import submission.dicoding.fundamental.gituser.other.Function.visibilityView
 import submission.dicoding.fundamental.gituser.ui.adapters.FavoriteAdapter
 
+
 @AndroidEntryPoint
 class FavoriteFragment : Fragment() {
     private var _binding: FragmentFavoriteBinding? = null
     private val binding get() = _binding
     private lateinit var favoriteAdapter: FavoriteAdapter
     private val viewModel by viewModels<FavoriteViewModel>()
-    private lateinit var navController: NavController
 
 
     override fun onCreateView(
@@ -36,7 +34,6 @@ class FavoriteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        navController = Navigation.findNavController(view)
         setupDataView()
         setupRecyclerView()
     }
@@ -44,10 +41,11 @@ class FavoriteFragment : Fragment() {
     private fun setupDataView() {
         viewModel.getAllUserFavorite.observe(viewLifecycleOwner, { response ->
             favoriteAdapter.differ.submitList(response)
-
             visibilityView(binding?.layoutEmpty?.root, favoriteAdapter.differ.currentList.size < 1)
         })
     }
+
+
 
 
     private fun setupRecyclerView() {

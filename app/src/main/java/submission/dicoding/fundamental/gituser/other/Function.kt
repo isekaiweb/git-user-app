@@ -1,7 +1,9 @@
 package submission.dicoding.fundamental.gituser.other
 
+import android.content.Context
 import android.icu.text.CompactDecimalFormat
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.navigation.Navigation
@@ -69,5 +71,11 @@ internal object Function {
 
 
     }
+
+    fun View.hideKeyboard() {
+        val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(windowToken, 0)
+    }
+
 
 }

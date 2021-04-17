@@ -6,14 +6,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import submission.dicoding.fundamental.gituser.R
 import submission.dicoding.fundamental.gituser.databinding.FragmentSetupBinding
+import submission.dicoding.fundamental.gituser.other.Constants.Companion.DELAY_SEARCH
 import submission.dicoding.fundamental.gituser.other.Constants.Companion.KEY_FIRST_TIME_TOGGLE
 import submission.dicoding.fundamental.gituser.other.Constants.Companion.KEY_USERNAME
+import submission.dicoding.fundamental.gituser.other.Function.hideKeyboard
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -23,9 +28,6 @@ class SetupFragment : Fragment() {
 
     @Inject
     lateinit var sharedPreferences: SharedPreferences
-
-    @set:Inject
-    var isFirstAppOpen = true
 
 
     override fun onCreateView(
@@ -39,6 +41,7 @@ class SetupFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val isFirstAppOpen = sharedPreferences.getBoolean(KEY_FIRST_TIME_TOGGLE,true)
 
         if (!isFirstAppOpen) {
             val navOptions = NavOptions.Builder()
@@ -53,9 +56,13 @@ class SetupFragment : Fragment() {
 
         binding?.apply {
             btnContinue.setOnClickListener {
+                etUsername.hideKeyboard()
                 val success = saveUsernameToSharedPref()
                 if (success) {
-                    findNavController().navigate(R.id.action_setupFragment_to_searchFragment)
+                    lifecycleScope.launch {
+                        delay(DELAY_SEARCH)
+                        findNavController().navigate(SetupFragmentDirections.actionSetupFragmentToSearchFragment())
+                    }
                 } else {
                     Snackbar.make(
                         requireView(),
@@ -71,7 +78,7 @@ class SetupFragment : Fragment() {
 
     private fun saveUsernameToSharedPref(): Boolean {
         binding?.apply {
-            val username = etName.text.toString()
+            val username = etUsername.text.toString()
             if (username.isEmpty()) {
                 return false
             }

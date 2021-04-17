@@ -1,5 +1,6 @@
 package submission.dicoding.fundamental.gituser.db
 
+import android.database.Cursor
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import submission.dicoding.fundamental.gituser.models.UserDetail
@@ -17,4 +18,7 @@ interface UserDao {
 
     @Query("SELECT * FROM table_user")
     fun getAllUserFavorite(): LiveData<List<UserDetail>>
+
+    @Query("SELECT * FROM table_user")
+    fun findAll(): Cursor
 }

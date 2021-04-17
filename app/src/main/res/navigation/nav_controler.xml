@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation_container"
     xmlns:tools="http://schemas.android.com/tools"
     app:startDestination="@id/setupFragment">
-
-
     <fragment
         android:id="@+id/searchFragment"
         android:name="submission.dicoding.fundamental.gituser.ui.search.SearchFragment"
@@ -35,6 +34,13 @@
         <action
             android:id="@+id/action_profileFragment_to_webViewFragment"
             app:destination="@id/webViewFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_profileFragment_to_profileSettingsFragment"
+            app:destination="@id/profileSettingsFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -106,4 +112,18 @@
         android:name="submission.dicoding.fundamental.gituser.ui.profile.ProfileSettingsFragment"
         android:label="ProfileSettingsFragment"
         tools:layout="@layout/fragment_profile_settings" />
+    <action
+        android:id="@+id/action_global_searchFragment"
+        app:destination="@id/searchFragment"
+        app:popUpTo="@id/searchFragment"
+        app:popUpToInclusive="true" />
+    <action
+        android:id="@+id/action_global_favoriteFragment"
+        app:destination="@id/favoriteFragment"
+        app:popUpTo="@id/searchFragment" />
+    <action
+        android:id="@+id/action_global_profileFragment"
+        app:destination="@id/profileFragment"
+        app:popUpTo="@id/searchFragment" />
+
 </navigation>

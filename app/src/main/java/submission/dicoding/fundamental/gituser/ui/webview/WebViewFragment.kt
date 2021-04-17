@@ -1,5 +1,6 @@
 package submission.dicoding.fundamental.gituser.ui.webview
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +11,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
 import submission.dicoding.fundamental.gituser.databinding.FragmentWebViewBinding
-import submission.dicoding.fundamental.gituser.other.Function.visibilityView
 
 
 @AndroidEntryPoint
@@ -36,10 +36,13 @@ class WebViewFragment : Fragment() {
     }
 
 
+
+    @SuppressLint("SetJavaScriptEnabled")
     private fun setupWebView() {
         binding?.apply {
             webView.apply {
                 webViewClient = WebViewClient()
+                settings.javaScriptEnabled = true
                 loadUrl(args.url)
             }
 

@@ -27,13 +27,42 @@
                 android:id="@+id/container_item_in_collapseBar_profile"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="?attr/actionBarSize"
-                android:background="@color/primary_black"
-                android:padding="@dimen/spaceSpecial">
+                android:paddingBottom="@dimen/spaceSpecial"
+               >
+
+                <TextView
+                    android:id="@+id/tv_username"
+                    android:layout_width="@dimen/sizeAuto"
+                    android:layout_height="?attr/actionBarSize"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:textAlignment="textStart"
+                    android:layout_marginStart="@dimen/spaceSpecial"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/title_fragment"
+                    app:layout_constraintBottom_toTopOf="@+id/img_avatarDetail_profile"
+                    app:layout_constraintEnd_toStartOf="@+id/btn_edit"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="RtlCompat"
+                    tools:text="@string/dummyUsername" />
+
+                <ImageButton
+                    android:id="@+id/btn_edit"
+                    android:layout_width="50dp"
+                    android:layout_height="@dimen/sizeAuto"
+                    android:background="@color/transparent"
+                    android:contentDescription="@string/edit_profile"
+                    android:src="@drawable/ic_edit"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_username"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/img_avatarDetail_profile"
                     style="@style/avatar.detail"
+                    android:layout_marginStart="@dimen/spaceSpecial"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_name_detail_profile"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/tv_name_detail_profile"
@@ -49,6 +78,7 @@
                     android:textSize="@dimen/nameSize"
                     android:textStyle="bold"
                     android:translationY="-30dp"
+                    android:layout_marginEnd="@dimen/spaceSpecial"
                     app:layout_constraintBottom_toBottomOf="@+id/btn_github_profile"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/img_avatarDetail_profile"
@@ -76,7 +106,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
-                    android:layout_marginStart="6dp"
+                   android:layout_marginHorizontal="@dimen/spaceSpecial"
                     android:layout_marginTop="5dp"
                     android:drawablePadding="@dimen/paddingNormal"
                     android:textColor="@color/white"
@@ -92,7 +122,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/sizeAuto"
                     android:layout_gravity="center"
-                    android:layout_marginStart="6dp"
+                    android:layout_marginStart="@dimen/spaceSpecial"
                     android:layout_marginTop="5dp"
                     android:drawablePadding="@dimen/paddingNormal"
                     android:textColor="@color/white"
@@ -120,7 +150,7 @@
                     android:id="@+id/layout_collapse_profile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="6dp"
+                    android:layout_marginHorizontal="@dimen/spaceSpecial"
                     android:layout_marginTop="@dimen/paddingNormal"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -156,22 +186,6 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar_profile"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/primary_black"
-                app:menu="@menu/profile_menu"
-                app:layout_collapseMode="pin">
-
-                <TextView
-                    android:id="@+id/tv_title_toolbar_profile"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/title_fragment"
-                    tools:text="@string/dummyUsername" />
-            </androidx.appcompat.widget.Toolbar>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 

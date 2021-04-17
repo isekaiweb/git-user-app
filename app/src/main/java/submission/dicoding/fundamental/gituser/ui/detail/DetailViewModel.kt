@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import submission.dicoding.fundamental.gituser.api.Resource
@@ -31,6 +32,8 @@ class DetailViewModel @Inject constructor(
 
     val detailTypeUser: MutableLiveData<Resource<List<UserDetail>>> = MutableLiveData()
     private var detailTypeUserResponse: List<UserDetail>? = null
+
+    val isProfileValid = MutableLiveData<Boolean>()
 
 
     fun getUserDetail(username: String) = viewModelScope.launch {

@@ -9,9 +9,9 @@
         android:id="@+id/title_not_found"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Your username not found!"
+        android:text="@string/your_username_not_found"
         android:textColor="@color/white"
-        android:textSize="30sp"
+        android:textSize="26sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,20 +22,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/paddingNormal"
-        android:text="Please Enter Again"
+        android:text="@string/please_enter_again"
         android:textColor="@color/secondary_white"
-        android:textSize="@dimen/nameSize"
+        android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="@+id/title_not_found"
         app:layout_constraintStart_toStartOf="@+id/title_not_found"
         app:layout_constraintTop_toBottomOf="@+id/title_not_found" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/et_name_profile"
+        android:id="@+id/et_username_profile"
         android:layout_width="@dimen/sizeAuto"
         android:layout_height="wrap_content"
-        android:hint="@string/username"
         android:layout_marginTop="@dimen/spaceSpecial"
-        android:inputType="textPersonName"
+        android:hint="@string/username"
+        android:lines="1"
+        android:maxLines="1"
+        android:singleLine="true"
         android:textColor="@color/white"
         android:textColorHighlight="@color/secondary_white"
         android:textColorHint="@color/secondary_white"
@@ -47,25 +49,25 @@
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_continue_profile"
         android:layout_width="@dimen/sizeAuto"
-        android:layout_height="40dp"
-        android:layout_marginTop="10dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="@dimen/spaceMax"
         android:background="@drawable/bg_rounded_black_for_btn"
         android:foreground="?attr/selectableItemBackground"
         android:paddingHorizontal="@dimen/paddingMax"
-        android:text="@string/txt_continue"
-        android:textAllCaps="false"
+        android:text="@string/change"
         android:textColor="@color/white"
         android:textSize="22sp"
-        app:layout_constraintEnd_toEndOf="@+id/et_name_profile"
-        app:layout_constraintStart_toStartOf="@+id/et_name_profile"
-        app:layout_constraintTop_toBottomOf="@+id/et_name_profile" />
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/et_username_profile"
+        app:layout_constraintStart_toStartOf="@+id/et_username_profile"
+        app:layout_constraintTop_toBottomOf="@+id/et_username_profile" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="99dp" />
+        app:layout_constraintGuide_begin="112dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

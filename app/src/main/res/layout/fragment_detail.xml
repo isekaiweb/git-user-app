@@ -26,9 +26,9 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/container_item_in_collapseBar"
                 android:layout_width="match_parent"
-                android:background="@color/primary_black"
                 android:layout_height="match_parent"
                 android:layout_marginTop="?attr/actionBarSize"
+                android:background="@color/primary_black"
                 android:padding="@dimen/spaceSpecial">
 
                 <com.google.android.material.imageview.ShapeableImageView
@@ -58,10 +58,10 @@
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_github"
                     android:layout_width="wrap_content"
-                    android:foreground="?attr/selectableItemBackground"
                     android:layout_height="40dp"
                     android:layout_marginStart="@dimen/spaceMax"
                     android:background="@drawable/bg_rounded_black_for_btn"
+                    android:foreground="?attr/selectableItemBackground"
                     android:paddingHorizontal="@dimen/paddingMax"
                     android:text="@string/btn_github"
                     android:textAllCaps="false"
@@ -119,8 +119,8 @@
                 <net.cachapa.expandablelayout.ExpandableLayout
                     android:id="@+id/layout_collapse"
                     android:layout_width="match_parent"
-                    android:layout_marginStart="6dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
                     android:layout_marginTop="@dimen/paddingNormal"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -161,13 +161,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="@color/primary_black"
-                app:layout_collapseMode="pin"
                 app:navigationIcon="@drawable/ic_left_arrow">
 
                 <TextView
                     android:id="@+id/tv_title_toolbar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
                     android:textColor="@color/white"
                     android:textSize="@dimen/title_fragment"
                     android:translationX="-20dp"
@@ -206,9 +207,9 @@
         android:id="@+id/layout_loading_detail"
         layout="@layout/layout_loading_spinner" />
 
-    <include android:id="@+id/layout_btn_favorite"
-        layout="@layout/layout_btn_favorite"
-        />
+    <include
+        android:id="@+id/layout_btn_favorite"
+        layout="@layout/layout_btn_favorite" />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

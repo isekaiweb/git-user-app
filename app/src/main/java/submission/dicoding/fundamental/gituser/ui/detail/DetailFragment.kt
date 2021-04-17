@@ -53,7 +53,6 @@ class DetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        visibilityAllViewData(false)
         viewModel.getUserDetail(args.username)
         setupTollBarTitle(args.username)
         setupDataView()
@@ -62,8 +61,8 @@ class DetailFragment : Fragment() {
     }
 
     private fun setupDataView() {
-
         viewModel.detailUser.observe(viewLifecycleOwner, { response ->
+            visibilityAllViewData(false)
             binding?.apply {
                 val layoutLoading = layoutLoadingDetail.root
                 when (response) {
@@ -86,12 +85,9 @@ class DetailFragment : Fragment() {
                             }
                         }
                         visibilityView(layoutLoading, false)
-                        visibilityAllViewData(false)
                     }
                     is Resource.Loading -> {
                         visibilityView(layoutLoading, true)
-                        visibilityAllViewData(false)
-
                     }
                 }
             }
@@ -244,20 +240,9 @@ class DetailFragment : Fragment() {
         }
     }
 
-    override fun onPause() {
-        super.onPause()
-        visibilityAllViewData(false)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        visibilityAllViewData(false)
-    }
-
 
     override fun onDestroy() {
-        super.onDestroy()
-        visibilityAllViewData(false)
         _binding = null
+        super.onDestroy()
     }
 }

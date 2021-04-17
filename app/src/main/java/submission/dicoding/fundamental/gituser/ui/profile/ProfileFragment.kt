@@ -3,10 +3,14 @@ package submission.dicoding.fundamental.gituser.ui.profile
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.google.android.material.snackbar.Snackbar
@@ -22,6 +26,7 @@ import submission.dicoding.fundamental.gituser.other.Constants.Companion.KEY_USE
 import submission.dicoding.fundamental.gituser.other.Constants.Companion.NETWORK_FAILURE
 import submission.dicoding.fundamental.gituser.other.Constants.Companion.NO_INTERNET_CONNECTION
 import submission.dicoding.fundamental.gituser.other.Function
+import submission.dicoding.fundamental.gituser.other.Function.hideKeyboard
 import submission.dicoding.fundamental.gituser.other.Function.openInBrowser
 import submission.dicoding.fundamental.gituser.other.Function.setVisibilityView
 import submission.dicoding.fundamental.gituser.other.Function.visibilityView
@@ -45,6 +50,7 @@ class ProfileFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         return _binding?.root
     }
@@ -53,26 +59,28 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val username = sharedPreferences.getString(KEY_USERNAME, "")
         viewModel.getUserDetail(username!!)
-        binding?.tvTitleToolbarProfile?.text = username
-        visibilityAllViewData(false)
+        binding?.tvUsername?.text = username
         setupDataView()
-        setupToolbar()
+        setupBtnEdit()
     }
 
 
     private fun setupDataView() {
         val layoutNotFound = binding?.layoutNotFoundUsername?.root
+        val layoutLoading = binding?.layoutLoadingProfile?.root
         viewModel.detailUser.observe(viewLifecycleOwner, { response ->
-            val layoutLoading = binding?.layoutLoadingProfile?.root
-
-
+            visibilityAllViewData(false)
+            visibilityView(layoutNotFound, false)
             when (response) {
                 is Resource.Success -> {
                     response.data?.let { result ->
                         setupUI(result)
                         visibilityView(layoutLoading, false)
                         visibilityAllViewData(true)
+                        viewModel.isProfileValid.postValue(true)
                     }
+
+
                 }
                 is Resource.Error -> {
                     response.message?.let { message ->
@@ -82,17 +90,16 @@ class ProfileFragment : Fragment() {
                             NO_INTERNET_CONNECTION -> Log.e("ERROR", NO_INTERNET_CONNECTION)
                             else -> {
                                 visibilityView(layoutNotFound, true)
-                                applyChangesToSharedPref()
+                                changeUsernameProfile()
                             }
                         }
+
                     }
+                    viewModel.isProfileValid.postValue(false)
                     visibilityView(layoutLoading, false)
-                    visibilityAllViewData(false)
                 }
                 is Resource.Loading -> {
                     visibilityView(layoutLoading, true)
-                    visibilityAllViewData(false)
-                    visibilityView(layoutNotFound, false)
                 }
             }
 
@@ -142,6 +149,9 @@ class ProfileFragment : Fragment() {
                 data.company.isNullOrEmpty() && data.location.isNullOrEmpty()
             val isEmailAndBlogNull = data.blog.isNullOrEmpty() && data.email.isNullOrEmpty()
 
+
+
+
             tvBlogProfile.setOnClickListener {
                 openInBrowser(data.blog!!, requireView(), DESTINATION_PROFILE)
             }
@@ -174,51 +184,41 @@ class ProfileFragment : Fragment() {
             }
         }
 
-
     }
 
 
-    private fun applyChangesToSharedPref() {
+    private fun setupBtnEdit() {
+        viewModel.isProfileValid.observe(viewLifecycleOwner, {
+            binding?.btnEdit?.apply {
+                isVisible = it
+                setOnClickListener {
+                    findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToProfileSettingsFragment())
+                }
+            }
+        })
+    }
+
+
+    private fun changeUsernameProfile() {
         binding?.apply {
             layoutNotFoundUsername.btnContinueProfile.setOnClickListener {
-                val username = layoutNotFoundUsername.etNameProfile.text.toString()
+                layoutNotFoundUsername.etUsernameProfile.hideKeyboard()
+                val username = layoutNotFoundUsername.etUsernameProfile.text.toString()
                 if (username.isEmpty()) {
-                    Snackbar.make(it, "Please fill out this fields", Snackbar.LENGTH_LONG)
+                    Snackbar.make(it, "Please fill out this fields", Snackbar.LENGTH_SHORT)
                         .show()
 
                 } else {
-                    Snackbar.make(it, "Saved changes", Snackbar.LENGTH_LONG).show()
                     visibilityView(layoutNotFoundUsername.root, false)
                     sharedPreferences.edit()
                         .putString(KEY_USERNAME, username)
                         .apply()
-                    layoutNotFoundUsername.etNameProfile.clearFocus()
                     viewModel.getUserDetail(username)
-                    binding?.tvTitleToolbarProfile?.text = username
+                    binding?.tvUsername?.text = username
                 }
             }
 
         }
-    }
-
-    private fun setupToolbar() {
-        setHasOptionsMenu(true)
-        (activity as AppCompatActivity?)!!.setSupportActionBar(binding?.toolbarProfile)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.profile_menu, menu)
-        super.onCreateOptionsMenu(menu, inflater)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
-            R.id.profileSettingsFragment ->{
-                Log.e("OI","MENU HERE")
-            }
-        }
-
-        return super.onOptionsItemSelected(item)
     }
 
 
@@ -245,10 +245,18 @@ class ProfileFragment : Fragment() {
         }
     }
 
+    override fun onPause() {
+        visibilityAllViewData(false)
+        super.onPause()
+    }
+
+    override fun onResume() {
+        visibilityAllViewData(false)
+        super.onResume()
+    }
 
     override fun onDestroy() {
-        super.onDestroy()
-        visibilityAllViewData(false)
         _binding = null
+        super.onDestroy()
     }
 }
