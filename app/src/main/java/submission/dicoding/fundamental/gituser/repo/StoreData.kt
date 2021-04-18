@@ -12,5 +12,6 @@ class StoreData @Inject constructor(
     suspend fun insertFavoriteUser(user: UserDetail) = userDao.insertFavoriteUser(user)
     suspend fun deleteFavoriteUser(user: UserDetail) = userDao.deleteFavoriteUser(user)
     suspend fun checkIfAlreadyFavorite(id: Long) = userDao.checkIfAlreadyFavorite(id)
+
     fun getAllUserFavorite() = userDao.getAllUserFavorite()
 }

@@ -7,10 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
-import androidx.fragment.app.*
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -22,6 +21,7 @@ import submission.dicoding.fundamental.gituser.databinding.FragmentSearchBinding
 import submission.dicoding.fundamental.gituser.other.Constants
 import submission.dicoding.fundamental.gituser.other.Constants.Companion.DELAY_CLEAR_FOCUS
 import submission.dicoding.fundamental.gituser.other.Constants.Companion.DELAY_SEARCH
+import submission.dicoding.fundamental.gituser.other.Function.hideKeyboard
 import submission.dicoding.fundamental.gituser.other.Function.visibilityView
 import submission.dicoding.fundamental.gituser.ui.adapters.UserAdapter
 
@@ -70,13 +70,16 @@ class SearchFragment : Fragment() {
                 is Resource.Error -> {
                     response.message?.let { message ->
                         when (message) {
-                            Constants.CONVERSION_ERROR -> Log.e("ERROR",
+                            Constants.CONVERSION_ERROR -> Log.e(
+                                "ERROR",
                                 Constants.CONVERSION_ERROR
                             )
-                            Constants.NETWORK_FAILURE -> Log.e("ERROR",
+                            Constants.NETWORK_FAILURE -> Log.e(
+                                "ERROR",
                                 Constants.NETWORK_FAILURE
                             )
-                            Constants.NO_INTERNET_CONNECTION -> Log.e("ERROR",
+                            Constants.NO_INTERNET_CONNECTION -> Log.e(
+                                "ERROR",
                                 Constants.NO_INTERNET_CONNECTION
                             )
                             else -> {
@@ -150,8 +153,13 @@ class SearchFragment : Fragment() {
         }
     }
 
+    override fun onPause() {
+        binding?.svUsers?.hideKeyboard()
+        super.onPause()
+    }
+
     private fun moveToDetail(username: String) {
-       findNavController().navigate(
+        findNavController().navigate(
             SearchFragmentDirections.actionSearchFragmentToDetailFragment(username)
         )
     }

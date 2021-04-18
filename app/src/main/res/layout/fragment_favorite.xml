@@ -13,15 +13,15 @@
         style="@style/title_fragment"
         android:drawablePadding="@dimen/spaceSpecial"
         android:text="@string/title_favorite_fragment"
+        app:drawableEndCompat="@drawable/ic_heart_true"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:drawableEndCompat="@drawable/ic_heart_true" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_user_favorite"
         android:layout_width="match_parent"
-        android:layout_marginTop="@dimen/spaceSpecial"
         android:layout_height="@dimen/sizeAuto"
+        android:layout_marginTop="@dimen/spaceSpecial"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,10 +35,10 @@
         layout="@layout/layout_empty_data"
         android:layout_width="match_parent"
         android:layout_height="@dimen/sizeAuto"
-
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/rv_user_favorite" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_title_Search" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,9 +3,7 @@ package submission.dicoding.fundamental.gituser.ui.detail
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import submission.dicoding.fundamental.gituser.api.Resource
@@ -53,6 +51,7 @@ class DetailViewModel @Inject constructor(
     }
 
     suspend fun checkIfAlreadyFavorite(id: Long) = storeData.checkIfAlreadyFavorite(id)
+
 
 
     private fun handleResponseGetDetailUser(response: Response<UserDetail>):

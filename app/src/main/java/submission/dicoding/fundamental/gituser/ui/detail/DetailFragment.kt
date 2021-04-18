@@ -1,5 +1,6 @@
 package submission.dicoding.fundamental.gituser.ui.detail
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -23,6 +24,7 @@ import submission.dicoding.fundamental.gituser.api.Resource
 import submission.dicoding.fundamental.gituser.databinding.FragmentDetailBinding
 import submission.dicoding.fundamental.gituser.models.UserDetail
 import submission.dicoding.fundamental.gituser.other.Constants.Companion.CONVERSION_ERROR
+import submission.dicoding.fundamental.gituser.other.Constants.Companion.KEY_USERNAME
 import submission.dicoding.fundamental.gituser.other.Constants.Companion.NETWORK_FAILURE
 import submission.dicoding.fundamental.gituser.other.Constants.Companion.NO_INTERNET_CONNECTION
 import submission.dicoding.fundamental.gituser.other.Function
@@ -31,6 +33,8 @@ import submission.dicoding.fundamental.gituser.other.Function.openInBrowser
 import submission.dicoding.fundamental.gituser.other.Function.setVisibilityView
 import submission.dicoding.fundamental.gituser.other.Function.visibilityView
 import submission.dicoding.fundamental.gituser.ui.adapters.DetailPagerAdapter
+import java.util.*
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class DetailFragment : Fragment() {
@@ -39,6 +43,10 @@ class DetailFragment : Fragment() {
     private val viewModel by viewModels<DetailViewModel>()
     private lateinit var actionAdapter: DetailPagerAdapter
     private val args by navArgs<DetailFragmentArgs>()
+
+
+    @Inject
+    lateinit var sharedPreferences: SharedPreferences
 
 
     override fun onCreateView(
@@ -61,6 +69,7 @@ class DetailFragment : Fragment() {
     }
 
     private fun setupDataView() {
+        val username = sharedPreferences.getString(KEY_USERNAME, "")
         viewModel.detailUser.observe(viewLifecycleOwner, { response ->
             visibilityAllViewData(false)
             binding?.apply {
@@ -71,6 +80,10 @@ class DetailFragment : Fragment() {
                             setupUI(result)
                             visibilityView(layoutLoading, false)
                             visibilityAllViewData(true)
+                            visibilityView(
+                                layoutBtnFavorite.root,
+                                !result.login.equals(username, ignoreCase = true)
+                            )
                         }
                     }
                     is Resource.Error -> {
@@ -96,6 +109,7 @@ class DetailFragment : Fragment() {
 
 
     private fun setupUI(data: UserDetail) {
+
         setupDatabase(data)
         setupTabLayout(data)
         binding?.apply {
