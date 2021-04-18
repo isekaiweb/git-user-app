@@ -1,7 +1,6 @@
 package submission.dicoding.fundamental.gituser.ui.detail
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
+import submission.dicoding.fundamental.gituser.R
 import submission.dicoding.fundamental.gituser.api.Resource
 import submission.dicoding.fundamental.gituser.databinding.FragmentListBinding
 import submission.dicoding.fundamental.gituser.models.UserDetail
@@ -70,6 +70,7 @@ class FollowersFollowingFragment : Fragment() {
             val layoutLoading = loadingList.root
             val recyclerView = rvList
             val layoutEmpty = layoutEmpty.root
+            val layoutError = binding?.layoutErrorList
 
             viewModel.detailTypeUser.observe(viewLifecycleOwner, { response ->
                 when (response) {
@@ -88,21 +89,25 @@ class FollowersFollowingFragment : Fragment() {
                     }
                     is Resource.Error -> {
                         response.message?.let { message ->
+                            visibilityView(layoutError?.root, true)
                             when (message) {
-                                CONVERSION_ERROR -> Log.e("ERROR", CONVERSION_ERROR)
-                                NETWORK_FAILURE -> Log.e("ERROR", NETWORK_FAILURE)
-                                NO_INTERNET_CONNECTION -> Log.e("ERROR", NO_INTERNET_CONNECTION)
-                                else -> {
-                                    Log.e("ERROR", "SOMETHING WRONG")
-                                }
+                                CONVERSION_ERROR -> layoutError?.imgError?.setImageResource(R.drawable.img_something_wrong)
+                                NETWORK_FAILURE -> layoutError?.imgError?.setImageResource(R.drawable.img_no_internet)
+                                NO_INTERNET_CONNECTION -> layoutError?.imgError?.setImageResource(R.drawable.img_no_internet)
+                                else -> layoutError?.imgError?.setImageResource(R.drawable.img_something_wrong)
                             }
                         }
+                        layoutError?.btnTryAgain?.setOnClickListener {
+                            getDetailTypeUser()
+                        }
+
                         visibilityView(layoutLoading, false)
                         visibilityView(recyclerView, false)
                     }
                     is Resource.Loading -> {
                         visibilityView(recyclerView, false)
                         visibilityView(layoutLoading, true)
+                        visibilityView(layoutError?.root, false)
                     }
                 }
             })

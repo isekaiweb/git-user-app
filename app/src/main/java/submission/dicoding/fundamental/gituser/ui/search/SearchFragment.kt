@@ -1,8 +1,8 @@
 package submission.dicoding.fundamental.gituser.ui.search
 
 
+import android.content.res.Configuration
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,11 +16,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import submission.dicoding.fundamental.gituser.R
 import submission.dicoding.fundamental.gituser.api.Resource
 import submission.dicoding.fundamental.gituser.databinding.FragmentSearchBinding
-import submission.dicoding.fundamental.gituser.other.Constants
+import submission.dicoding.fundamental.gituser.other.Constants.Companion.CONVERSION_ERROR
 import submission.dicoding.fundamental.gituser.other.Constants.Companion.DELAY_CLEAR_FOCUS
 import submission.dicoding.fundamental.gituser.other.Constants.Companion.DELAY_SEARCH
+import submission.dicoding.fundamental.gituser.other.Constants.Companion.NETWORK_FAILURE
+import submission.dicoding.fundamental.gituser.other.Constants.Companion.NO_INTERNET_CONNECTION
 import submission.dicoding.fundamental.gituser.other.Function.hideKeyboard
 import submission.dicoding.fundamental.gituser.other.Function.visibilityView
 import submission.dicoding.fundamental.gituser.ui.adapters.UserAdapter
@@ -57,6 +60,7 @@ class SearchFragment : Fragment() {
         val layoutLoading = binding?.layoutList?.loadingList?.root
         val recyclerView = binding?.layoutList?.rvList
         val layoutEmpty = binding?.layoutNotFoundSearch?.root
+        val layoutError = binding?.layoutErrorSearch
 
         viewModel.searchUser.observe(viewLifecycleOwner, { response ->
             when (response) {
@@ -68,35 +72,31 @@ class SearchFragment : Fragment() {
                     }
                 }
                 is Resource.Error -> {
+                    visibilityView(layoutError?.root, true)
+                    layoutError?.guideline6?.setGuidelineBegin(180)
                     response.message?.let { message ->
                         when (message) {
-                            Constants.CONVERSION_ERROR -> Log.e(
-                                "ERROR",
-                                Constants.CONVERSION_ERROR
-                            )
-                            Constants.NETWORK_FAILURE -> Log.e(
-                                "ERROR",
-                                Constants.NETWORK_FAILURE
-                            )
-                            Constants.NO_INTERNET_CONNECTION -> Log.e(
-                                "ERROR",
-                                Constants.NO_INTERNET_CONNECTION
-                            )
-                            else -> {
-                                Log.e("ERROR", "SOMETHING WRONG")
-                            }
+                            CONVERSION_ERROR -> layoutError?.imgError?.setImageResource(R.drawable.img_something_wrong)
+                            NETWORK_FAILURE -> layoutError?.imgError?.setImageResource(R.drawable.img_no_internet)
+                            NO_INTERNET_CONNECTION -> layoutError?.imgError?.setImageResource(R.drawable.img_no_internet)
+                            else -> layoutError?.imgError?.setImageResource(R.drawable.img_something_wrong)
                         }
                     }
+
+                    layoutError?.btnTryAgain?.setOnClickListener {
+                        viewModel.newSearchQuery?.let { query -> viewModel.userSearch(query) }
+                    }
+
                     visibilityView(layoutLoading, false)
                     visibilityView(recyclerView, false)
                     visibilityView(layoutEmpty, false)
-
 
                 }
                 is Resource.Loading -> {
                     visibilityView(layoutLoading, true)
                     visibilityView(recyclerView, false)
                     visibilityView(layoutEmpty, false)
+                    visibilityView(layoutError?.root, false)
                 }
             }
         })
@@ -151,6 +151,16 @@ class SearchFragment : Fragment() {
             adapter = userAdapter
 
         }
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        binding?.layoutErrorSearch
+            ?.guideline6
+            ?.setGuidelineBegin(
+                if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) 80
+                else 180
+            )
+        super.onConfigurationChanged(newConfig)
     }
 
     override fun onPause() {

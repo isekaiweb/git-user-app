@@ -239,5 +239,11 @@
         layout="@layout/layout_profile_not_found"
         android:visibility="gone" />
 
+    <include
+        android:id="@+id/layout_error_profile"
+        layout="@layout/layout_error"
+        android:visibility="gone"
+      />
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

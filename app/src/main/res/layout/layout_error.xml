@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary_black">
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+
+
+      <ImageView
+          android:id="@+id/img_error"
+          android:layout_width="260dp"
+          android:layout_height="210dp"
+          android:contentDescription="@string/no_data_found"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="@+id/guideline6"
+          tools:src="@drawable/img_no_internet" />
+
+      <androidx.appcompat.widget.AppCompatButton
+          android:id="@+id/btn_try_again"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/spaceMax"
+          android:background="@drawable/bg_rounded_black_for_btn"
+          android:foreground="?attr/selectableItemBackground"
+          android:paddingHorizontal="@dimen/paddingMax"
+          android:text="@string/try_again"
+          android:textAllCaps="false"
+          android:textColor="@color/white"
+          android:textSize="22sp"
+          android:textStyle="bold"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/img_error" />
+
+      <androidx.constraintlayout.widget.Guideline
+          android:id="@+id/guideline6"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal"
+          app:layout_constraintGuide_begin="200dp" />
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

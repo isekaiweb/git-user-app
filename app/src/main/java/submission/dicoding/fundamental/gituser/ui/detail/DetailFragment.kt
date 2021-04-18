@@ -2,7 +2,6 @@ package submission.dicoding.fundamental.gituser.ui.detail
 
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -70,8 +69,8 @@ class DetailFragment : Fragment() {
 
     private fun setupDataView() {
         val username = sharedPreferences.getString(KEY_USERNAME, "")
+        val layoutError = binding?.layoutErrorDetail
         viewModel.detailUser.observe(viewLifecycleOwner, { response ->
-            visibilityAllViewData(false)
             binding?.apply {
                 val layoutLoading = layoutLoadingDetail.root
                 when (response) {
@@ -87,20 +86,25 @@ class DetailFragment : Fragment() {
                         }
                     }
                     is Resource.Error -> {
+                        visibilityView(layoutError?.root, true)
                         response.message?.let { message ->
                             when (message) {
-                                CONVERSION_ERROR -> Log.e("ERROR", CONVERSION_ERROR)
-                                NETWORK_FAILURE -> Log.e("ERROR", NETWORK_FAILURE)
-                                NO_INTERNET_CONNECTION -> Log.e("ERROR", NO_INTERNET_CONNECTION)
-                                else -> {
-                                    Log.e("ERROR", "SOMETHING WRONG")
-                                }
+                                CONVERSION_ERROR -> layoutError?.imgError?.setImageResource(R.drawable.img_something_wrong)
+                                NETWORK_FAILURE -> layoutError?.imgError?.setImageResource(R.drawable.img_no_internet)
+                                NO_INTERNET_CONNECTION -> layoutError?.imgError?.setImageResource(R.drawable.img_no_internet)
+                                else -> layoutError?.imgError?.setImageResource(R.drawable.img_something_wrong)
                             }
+                        }
+
+                        layoutError?.btnTryAgain?.setOnClickListener {
+                            viewModel.getUserDetail(args.username)
                         }
                         visibilityView(layoutLoading, false)
                     }
                     is Resource.Loading -> {
                         visibilityView(layoutLoading, true)
+                        visibilityView(layoutError?.root, false)
+                        visibilityAllViewData(false)
                     }
                 }
             }

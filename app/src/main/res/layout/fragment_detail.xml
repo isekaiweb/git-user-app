@@ -213,4 +213,10 @@
         layout="@layout/layout_btn_favorite" />
 
 
+    <include
+        android:id="@+id/layout_error_detail"
+        layout="@layout/layout_error"
+        android:visibility="gone"
+        />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

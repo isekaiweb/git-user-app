@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
+import submission.dicoding.fundamental.gituser.R
 import submission.dicoding.fundamental.gituser.api.Resource
 import submission.dicoding.fundamental.gituser.databinding.FragmentRepoBinding
 import submission.dicoding.fundamental.gituser.models.UserDetail
@@ -63,6 +64,7 @@ class ReposFragment : Fragment() {
             val layoutLoading = loadingRepo.root
             val recyclerView = rvRepo
             val layoutEmpty = layoutEmpty.root
+            val layoutError = binding?.layoutErrorRepo
             viewModel.detailTypeUser.observe(viewLifecycleOwner, { response ->
                 when (response) {
                     is Resource.Success -> {
@@ -81,19 +83,17 @@ class ReposFragment : Fragment() {
                     is Resource.Error -> {
                         response.message?.let { message ->
                             when (message) {
-                                Constants.CONVERSION_ERROR -> Log.e("ERROR",
-                                    Constants.CONVERSION_ERROR
-                                )
-                                Constants.NETWORK_FAILURE -> Log.e("ERROR",
-                                    Constants.NETWORK_FAILURE
-                                )
-                                Constants.NO_INTERNET_CONNECTION -> Log.e("ERROR",
-                                    Constants.NO_INTERNET_CONNECTION
-                                )
-                                else -> {
-                                    Log.e("ERROR", "SOMETHING WRONG")
-                                }
+                                Constants.CONVERSION_ERROR -> layoutError?.imgError?.setImageResource(
+                                    R.drawable.img_something_wrong)
+                                Constants.NETWORK_FAILURE -> layoutError?.imgError?.setImageResource(
+                                    R.drawable.img_no_internet)
+                                Constants.NO_INTERNET_CONNECTION -> layoutError?.imgError?.setImageResource(
+                                    R.drawable.img_no_internet)
+                                else -> layoutError?.imgError?.setImageResource(R.drawable.img_something_wrong)
                             }
+                        }
+                        layoutError?.btnTryAgain?.setOnClickListener {
+                            getDetailTypeUser()
                         }
                         visibilityView(layoutLoading, false)
                         visibilityView(recyclerView, false)
@@ -101,6 +101,7 @@ class ReposFragment : Fragment() {
                     is Resource.Loading -> {
                         visibilityView(recyclerView, false)
                         visibilityView(layoutLoading, true)
+                        visibilityView(layoutError?.root, false)
                     }
                 }
             })

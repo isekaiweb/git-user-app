@@ -2,7 +2,6 @@ package submission.dicoding.fundamental.gituser.ui.profile
 
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -68,9 +67,9 @@ class ProfileFragment : Fragment() {
     private fun setupDataView() {
         val layoutNotFound = binding?.layoutNotFoundUsername?.root
         val layoutLoading = binding?.layoutLoadingProfile?.root
+        val layoutError = binding?.layoutErrorProfile
+        val username = sharedPreferences.getString(KEY_USERNAME, "")
         viewModel.detailUser.observe(viewLifecycleOwner, { response ->
-            visibilityAllViewData(false)
-            visibilityView(layoutNotFound, false)
             when (response) {
                 is Resource.Success -> {
                     response.data?.let { result ->
@@ -84,22 +83,29 @@ class ProfileFragment : Fragment() {
                 }
                 is Resource.Error -> {
                     response.message?.let { message ->
+                        visibilityView(layoutError?.root, true)
                         when (message) {
-                            CONVERSION_ERROR -> Log.e("ERROR", CONVERSION_ERROR)
-                            NETWORK_FAILURE -> Log.e("ERROR", NETWORK_FAILURE)
-                            NO_INTERNET_CONNECTION -> Log.e("ERROR", NO_INTERNET_CONNECTION)
+                            CONVERSION_ERROR -> layoutError?.imgError?.setImageResource(R.drawable.img_something_wrong)
+                            NETWORK_FAILURE -> layoutError?.imgError?.setImageResource(R.drawable.img_no_internet)
+                            NO_INTERNET_CONNECTION -> layoutError?.imgError?.setImageResource(R.drawable.img_no_internet)
                             else -> {
+                                visibilityView(layoutError?.root, false)
                                 visibilityView(layoutNotFound, true)
                                 changeUsernameProfile()
                             }
                         }
-
+                        layoutError?.btnTryAgain?.setOnClickListener {
+                            username?.let { username -> viewModel.getUserDetail(username) }
+                        }
                     }
                     viewModel.isProfileValid.postValue(false)
                     visibilityView(layoutLoading, false)
                 }
                 is Resource.Loading -> {
                     visibilityView(layoutLoading, true)
+                    visibilityView(layoutError?.root, false)
+                    visibilityAllViewData(false)
+                    visibilityView(layoutNotFound, false)
                 }
             }
 

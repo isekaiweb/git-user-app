@@ -53,4 +53,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sv_users" />
 
+    <include
+        android:id="@+id/layout_error_search"
+        layout="@layout/layout_error"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/sizeAuto"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/sv_users" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
