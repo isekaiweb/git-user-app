@@ -53,7 +53,7 @@ Before you clone you should create your own API KEY first, Because this project 
 <img src="assets/flow.navigation.png" alt="flow" width="500"/>
 
 ## Demo
-if you want to see more detail you can visit the demo [here]()
+if you want to see more detail you can simply visit the demo [here]()
 
 
 
