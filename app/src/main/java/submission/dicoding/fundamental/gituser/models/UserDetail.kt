@@ -3,7 +3,8 @@ package submission.dicoding.fundamental.gituser.models
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
+
 import submission.dicoding.fundamental.gituser.other.Constants.Companion.TABLE_NAME
 
 @Entity(tableName = TABLE_NAME)

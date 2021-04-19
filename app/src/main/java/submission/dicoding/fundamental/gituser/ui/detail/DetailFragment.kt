@@ -16,7 +16,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.layout_btn_favorite.view.*
 import kotlinx.coroutines.launch
 import submission.dicoding.fundamental.gituser.R
 import submission.dicoding.fundamental.gituser.api.Resource
