@@ -166,7 +166,8 @@
                 android:layout_height="?attr/actionBarSize"
                 android:background="@color/primary_black"
                 app:layout_collapseMode="pin"
-                app:navigationIcon="@drawable/ic_left_arrow">
+                app:navigationIcon="@drawable/ic_left_arrow"
+                >
 
                 <TextView
                     android:id="@+id/tv_title_toolbar"

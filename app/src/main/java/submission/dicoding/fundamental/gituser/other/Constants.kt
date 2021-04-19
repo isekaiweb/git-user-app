@@ -11,7 +11,7 @@ abstract class Constants {
 
         const val EXTRA_USER = "user"
         const val EXTRA_ACTION = "action"
-        const val EXTRA_MESSAGE ="message"
+        const val EXTRA_MESSAGE = "message"
 
         const val CONVERSION_ERROR = "Conversion Error"
         const val NETWORK_FAILURE = "Network Failure"
@@ -23,13 +23,12 @@ abstract class Constants {
         const val EXTRA_DESTINATION = "destination"
         const val DESTINATION_PROFILE = "from profile fragment"
 
+        const val KEY_LAST_SEARCH = "A"
         const val KEY_IS_REMINDED = "i don't know"
         const val NOTIFICATION_CHANNEL_NAME = "no name"
         const val NOTIFICATION_CHANNEL_ID = "alarm_channel"
         const val NOTIFICATION_ID = 1
         const val ID_REPEATING = 101
-
-
 
 
     }

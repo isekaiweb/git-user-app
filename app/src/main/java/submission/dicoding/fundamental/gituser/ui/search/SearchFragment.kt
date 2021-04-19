@@ -1,6 +1,7 @@
 package submission.dicoding.fundamental.gituser.ui.search
 
 
+import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -22,11 +23,13 @@ import submission.dicoding.fundamental.gituser.databinding.FragmentSearchBinding
 import submission.dicoding.fundamental.gituser.other.Constants.Companion.CONVERSION_ERROR
 import submission.dicoding.fundamental.gituser.other.Constants.Companion.DELAY_CLEAR_FOCUS
 import submission.dicoding.fundamental.gituser.other.Constants.Companion.DELAY_SEARCH
+import submission.dicoding.fundamental.gituser.other.Constants.Companion.KEY_LAST_SEARCH
 import submission.dicoding.fundamental.gituser.other.Constants.Companion.NETWORK_FAILURE
 import submission.dicoding.fundamental.gituser.other.Constants.Companion.NO_INTERNET_CONNECTION
 import submission.dicoding.fundamental.gituser.other.Function.hideKeyboard
 import submission.dicoding.fundamental.gituser.other.Function.visibilityView
 import submission.dicoding.fundamental.gituser.ui.adapters.UserAdapter
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
@@ -35,6 +38,9 @@ class SearchFragment : Fragment() {
     private val binding get() = _binding
     private lateinit var userAdapter: UserAdapter
     private val viewModel by viewModels<SearchViewModel>()
+
+    @Inject
+    lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -101,7 +107,9 @@ class SearchFragment : Fragment() {
 
     private fun setupSearchUser() {
         var job: Job? = null
+        val lastQuery = sharedPreferences.getString(KEY_LAST_SEARCH, "A")
         binding?.svUsers?.apply {
+            setQuery(lastQuery, true)
             setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
                     return true

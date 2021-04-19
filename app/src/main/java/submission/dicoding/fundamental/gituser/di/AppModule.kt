@@ -15,6 +15,7 @@ import submission.dicoding.fundamental.gituser.db.GitHubUserDatabase
 import submission.dicoding.fundamental.gituser.other.Constants.Companion.BASE_URL
 import submission.dicoding.fundamental.gituser.other.Constants.Companion.KEY_FIRST_TIME_TOGGLE
 import submission.dicoding.fundamental.gituser.other.Constants.Companion.KEY_IS_REMINDED
+import submission.dicoding.fundamental.gituser.other.Constants.Companion.KEY_LAST_SEARCH
 import submission.dicoding.fundamental.gituser.other.Constants.Companion.KEY_USERNAME
 import submission.dicoding.fundamental.gituser.other.Constants.Companion.SHARED_PREFERENCES_NAME
 import submission.dicoding.fundamental.gituser.other.Constants.Companion.TABLE_NAME
@@ -62,8 +63,9 @@ internal object AppModule {
 
     @Singleton
     @Provides
+    @Named("username")
     fun provideUserName(sharedPref: SharedPreferences) =
-        sharedPref.getString(KEY_USERNAME, "") ?: ""
+        sharedPref.getString(KEY_USERNAME, "")
 
     @Singleton
     @Provides
@@ -77,4 +79,11 @@ internal object AppModule {
     @Named("reminder")
     fun provideIsReminded(sharedPref: SharedPreferences) =
         sharedPref.getBoolean(KEY_IS_REMINDED, false)
+
+
+    @Singleton
+    @Provides
+    @Named("lastSearch")
+    fun  provideLastSearch(sharedPref: SharedPreferences)=
+        sharedPref.getString(KEY_LAST_SEARCH,"A")
 }

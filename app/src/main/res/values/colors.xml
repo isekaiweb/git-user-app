@@ -4,6 +4,7 @@
     <color name="primary_black">#2E2E2D</color>
     <color name="secondary_black">#474747</color>
     <color name="secondary_white">#DFDEDE</color>
+    <color name="third_white">#66DFDEDE</color>
     <color name="ripple_black">#1E1E1E</color>
     <color name="secondary_ripple_black">#292929</color>
     <color name="ripple_black_op_50">#80292929</color>

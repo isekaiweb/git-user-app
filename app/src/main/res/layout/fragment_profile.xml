@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:theme="@style/Theme.GitUser"
     android:layout_height="match_parent"
     android:background="@color/primary_black"
+    android:theme="@style/Theme.GitUser"
     tools:context=".ui.detail.DetailFragment">
 
 
@@ -13,8 +13,7 @@
         android:id="@+id/root_appbar_profile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/primary_black"
-        >
+        android:background="@color/primary_black">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar_profile"
@@ -198,10 +197,11 @@
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_marginBottom="6dp"
-                        android:background="@color/transparent"
+                        android:background="@drawable/ripple_for_image_btn"
                         android:contentDescription="@string/edit_profile"
                         android:src="@drawable/ic_edit"
                         app:layout_constraintBottom_toBottomOf="parent"
+
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>

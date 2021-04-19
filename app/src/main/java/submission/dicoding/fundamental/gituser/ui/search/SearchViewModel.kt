@@ -2,6 +2,7 @@ package submission.dicoding.fundamental.gituser.ui.search
 
 
 import android.app.Application
+import android.content.SharedPreferences
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -11,6 +12,7 @@ import submission.dicoding.fundamental.gituser.api.Resource
 import submission.dicoding.fundamental.gituser.models.UserResponse
 import submission.dicoding.fundamental.gituser.other.ConnectionChecker
 import submission.dicoding.fundamental.gituser.other.Constants.Companion.CONVERSION_ERROR
+import submission.dicoding.fundamental.gituser.other.Constants.Companion.KEY_LAST_SEARCH
 import submission.dicoding.fundamental.gituser.other.Constants.Companion.NETWORK_FAILURE
 import submission.dicoding.fundamental.gituser.other.Constants.Companion.NO_INTERNET_CONNECTION
 import submission.dicoding.fundamental.gituser.repo.GetData
@@ -20,6 +22,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SearchViewModel @Inject constructor(
     private val getData: GetData, app: Application,
+    private var sharedPreferences: SharedPreferences
 ) : ConnectionChecker(app) {
 
 
@@ -33,7 +36,8 @@ class SearchViewModel @Inject constructor(
     }
 
     init {
-        userSearch("A")
+        val lastSearch = sharedPreferences.getString(KEY_LAST_SEARCH, "A")
+        userSearch(lastSearch!!)
     }
 
     private fun handleResponseSearchUser(response: Response<UserResponse>): Resource<UserResponse> {
@@ -42,6 +46,7 @@ class SearchViewModel @Inject constructor(
                 if (searchUserResponse == null || newSearchQuery != oldSearchQuery) {
                     oldSearchQuery = newSearchQuery
                     searchUserResponse = result
+                    sharedPreferences.edit().putString(KEY_LAST_SEARCH, newSearchQuery).apply()
                 }
                 return Resource.Success(searchUserResponse ?: result)
             }
