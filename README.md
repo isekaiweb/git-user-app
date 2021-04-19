@@ -37,20 +37,20 @@ Before you clone you should create your own API KEY first, Because this project 
 - [Dagger Hilt](https://dagger.dev/hilt/)
 - [Retrofit 2](https://square.github.io/retrofit/)
 - [Glide](https://github.com/bumptech/glide)
-- [AndroidX](https://mvnrepository.com/artifact/androidx)
 - [MVVM](https://developer.android.com/jetpack/guide)
 - [ROOM](https://developer.android.com/jetpack/androidx/releases/room)
 - [Shimmer Facebook](https://facebook.github.io/shimmer-android/)
 - [Smooth Loader](https://github.com/nntuyen/mkloader)
 - [Smooth Bottom Navigation](https://github.com/ibrahimsn98/SmoothBottomBar)
+- [View Binding](https://developer.android.com/topic/libraries/view-binding?hl=en)
 
 ## MAD SCORECARD
-<img src="assets/summary.png" alt="summary" width="500"/>
-<img src="assets/kotlin.png" alt="kotlin" width="500"/>
-<img src="assets/jetpack.png" alt="jetpack" width="500"/>
+<img src="assets/summary.png" alt="summary"/>
+<img src="assets/kotlin.png" alt="kotlin"/>
+<img src="assets/jetpack.png" alt="jetpack"/>
 
 ## Navigation Flow Apps
-<img src="assets/flow.navigation.png" alt="flow" width="500"/>
+<img src="assets/flow_navigation.png" alt="flow"/>
 
 ## Demo
 if you want to see more detail you can simply visit the demo [here]()
