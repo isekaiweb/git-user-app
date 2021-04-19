@@ -73,17 +73,15 @@ class FollowersFollowingFragment : Fragment() {
             val layoutError = binding?.layoutErrorList
 
             viewModel.detailTypeUser.observe(viewLifecycleOwner, { response ->
+                visibilityView(layoutLoading, false)
                 when (response) {
                     is Resource.Success -> {
                         response.data?.let { newResponse ->
                             userAdapter.differ.submitList(newResponse)
                             if (userAdapter.differ.currentList.size > 0) {
-                                visibilityView(layoutLoading, false)
                                 visibilityView(recyclerView, true)
                             } else {
                                 visibilityView(layoutEmpty, true)
-                                visibilityView(layoutLoading, false)
-                                visibilityView(recyclerView, false)
                             }
                         }
                     }
@@ -100,14 +98,12 @@ class FollowersFollowingFragment : Fragment() {
                         layoutError?.btnTryAgain?.setOnClickListener {
                             getDetailTypeUser()
                         }
-
-                        visibilityView(layoutLoading, false)
-                        visibilityView(recyclerView, false)
                     }
                     is Resource.Loading -> {
-                        visibilityView(recyclerView, false)
                         visibilityView(layoutLoading, true)
+                        visibilityView(recyclerView, false)
                         visibilityView(layoutError?.root, false)
+                        visibilityView(layoutEmpty, false)
                     }
                 }
             })

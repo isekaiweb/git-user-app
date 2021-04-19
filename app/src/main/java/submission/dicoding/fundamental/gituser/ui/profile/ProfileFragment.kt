@@ -27,6 +27,7 @@ import submission.dicoding.fundamental.gituser.other.Constants.Companion.NO_INTE
 import submission.dicoding.fundamental.gituser.other.Function
 import submission.dicoding.fundamental.gituser.other.Function.hideKeyboard
 import submission.dicoding.fundamental.gituser.other.Function.openInBrowser
+import submission.dicoding.fundamental.gituser.other.Function.setOnPressEnter
 import submission.dicoding.fundamental.gituser.other.Function.setVisibilityView
 import submission.dicoding.fundamental.gituser.other.Function.visibilityView
 import submission.dicoding.fundamental.gituser.ui.adapters.DetailPagerAdapter
@@ -59,6 +60,7 @@ class ProfileFragment : Fragment() {
         val username = sharedPreferences.getString(KEY_USERNAME, "")
         viewModel.getUserDetail(username!!)
         binding?.tvUsername?.text = username
+        visibilityAllViewData(false)
         setupDataView()
         setupBtnEdit()
     }
@@ -70,11 +72,11 @@ class ProfileFragment : Fragment() {
         val layoutError = binding?.layoutErrorProfile
         val username = sharedPreferences.getString(KEY_USERNAME, "")
         viewModel.detailUser.observe(viewLifecycleOwner, { response ->
+            visibilityView(layoutLoading, false)
             when (response) {
                 is Resource.Success -> {
                     response.data?.let { result ->
                         setupUI(result)
-                        visibilityView(layoutLoading, false)
                         visibilityAllViewData(true)
                         viewModel.isProfileValid.postValue(true)
                     }
@@ -89,6 +91,7 @@ class ProfileFragment : Fragment() {
                             NETWORK_FAILURE -> layoutError?.imgError?.setImageResource(R.drawable.img_no_internet)
                             NO_INTERNET_CONNECTION -> layoutError?.imgError?.setImageResource(R.drawable.img_no_internet)
                             else -> {
+                                viewModel.isProfileValid.postValue(false)
                                 visibilityView(layoutError?.root, false)
                                 visibilityView(layoutNotFound, true)
                                 changeUsernameProfile()
@@ -98,13 +101,11 @@ class ProfileFragment : Fragment() {
                             username?.let { username -> viewModel.getUserDetail(username) }
                         }
                     }
-                    viewModel.isProfileValid.postValue(false)
-                    visibilityView(layoutLoading, false)
                 }
                 is Resource.Loading -> {
+                    visibilityAllViewData(false)
                     visibilityView(layoutLoading, true)
                     visibilityView(layoutError?.root, false)
-                    visibilityAllViewData(false)
                     visibilityView(layoutNotFound, false)
                 }
             }
@@ -129,7 +130,6 @@ class ProfileFragment : Fragment() {
                 data.location,
                 tvLocationProfile
             )
-
 
 
             btnGithubProfile.setOnClickListener {
@@ -207,6 +207,10 @@ class ProfileFragment : Fragment() {
 
     private fun changeUsernameProfile() {
         binding?.apply {
+            setOnPressEnter(
+                layoutNotFoundUsername.etUsernameProfile,
+                layoutNotFoundUsername.btnContinueProfile
+            )
             layoutNotFoundUsername.btnContinueProfile.setOnClickListener {
                 layoutNotFoundUsername.etUsernameProfile.hideKeyboard()
                 val username = layoutNotFoundUsername.etUsernameProfile.text.toString()
@@ -251,15 +255,6 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    override fun onPause() {
-        visibilityAllViewData(false)
-        super.onPause()
-    }
-
-    override fun onResume() {
-        visibilityAllViewData(false)
-        super.onResume()
-    }
 
     override fun onDestroy() {
         _binding = null

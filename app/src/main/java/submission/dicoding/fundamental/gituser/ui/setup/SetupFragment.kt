@@ -19,6 +19,7 @@ import submission.dicoding.fundamental.gituser.other.Constants.Companion.DELAY_S
 import submission.dicoding.fundamental.gituser.other.Constants.Companion.KEY_FIRST_TIME_TOGGLE
 import submission.dicoding.fundamental.gituser.other.Constants.Companion.KEY_USERNAME
 import submission.dicoding.fundamental.gituser.other.Function.hideKeyboard
+import submission.dicoding.fundamental.gituser.other.Function.setOnPressEnter
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -41,7 +42,7 @@ class SetupFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val isFirstAppOpen = sharedPreferences.getBoolean(KEY_FIRST_TIME_TOGGLE,true)
+        val isFirstAppOpen = sharedPreferences.getBoolean(KEY_FIRST_TIME_TOGGLE, true)
 
         if (!isFirstAppOpen) {
             val navOptions = NavOptions.Builder()
@@ -55,6 +56,7 @@ class SetupFragment : Fragment() {
         }
 
         binding?.apply {
+            setOnPressEnter(etUsername, btnContinue)
             btnContinue.setOnClickListener {
                 etUsername.hideKeyboard()
                 val success = saveUsernameToSharedPref()

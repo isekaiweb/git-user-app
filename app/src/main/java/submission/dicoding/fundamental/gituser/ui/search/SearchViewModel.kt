@@ -26,7 +26,7 @@ class SearchViewModel @Inject constructor(
     val searchUser: MutableLiveData<Resource<UserResponse>> = MutableLiveData()
     private var searchUserResponse: UserResponse? = null
     var newSearchQuery: String? = null
-    var oldSearchQuery: String? = null
+    private var oldSearchQuery: String? = null
 
     fun userSearch(username: String) = viewModelScope.launch {
         safeSearchUser(username)

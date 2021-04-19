@@ -63,11 +63,11 @@ class SearchFragment : Fragment() {
         val layoutError = binding?.layoutErrorSearch
 
         viewModel.searchUser.observe(viewLifecycleOwner, { response ->
+            visibilityView(layoutLoading, false)
             when (response) {
                 is Resource.Success -> {
                     response.data?.let { newResponse ->
                         userAdapter.differ.submitList(newResponse.items)
-                        visibilityView(layoutLoading, false)
                         visibilityView(recyclerView, true)
                     }
                 }
@@ -86,10 +86,6 @@ class SearchFragment : Fragment() {
                     layoutError?.btnTryAgain?.setOnClickListener {
                         viewModel.newSearchQuery?.let { query -> viewModel.userSearch(query) }
                     }
-
-                    visibilityView(layoutLoading, false)
-                    visibilityView(recyclerView, false)
-                    visibilityView(layoutEmpty, false)
 
                 }
                 is Resource.Loading -> {

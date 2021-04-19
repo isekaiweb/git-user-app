@@ -45,6 +45,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/spaceMax"
                     android:layout_marginEnd="@dimen/spaceSpecial"
+                    android:ellipsize="end"
+                    android:maxLines="2"
                     android:textAllCaps="true"
                     android:textColor="@color/white"
                     android:textSize="@dimen/nameSize"
@@ -165,28 +167,28 @@
                 app:layout_collapseMode="pin"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-              >
+                app:layout_constraintTop_toTopOf="parent">
+
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/tv_username"
                         android:layout_width="@dimen/sizeAuto"
                         android:layout_height="?attr/actionBarSize"
                         android:ellipsize="end"
-                        android:textAlignment="textStart"
                         android:gravity="center"
                         android:maxLines="1"
+                        android:textAlignment="textStart"
                         android:textColor="@color/white"
                         android:textSize="@dimen/title_fragment"
                         app:layout_collapseMode="pin"
                         app:layout_constraintEnd_toStartOf="@+id/btn_edit"
                         app:layout_constraintStart_toStartOf="parent"
-                        tools:text="@string/dummyUsername"
-                        tools:ignore="RtlCompat" />
+                        tools:ignore="RtlCompat"
+                        tools:text="@string/dummyUsername" />
 
                     <ImageButton
                         android:id="@+id/btn_edit"
@@ -232,7 +234,8 @@
 
     <include
         android:id="@+id/layout_loading_profile"
-        layout="@layout/layout_loading_spinner" />
+        layout="@layout/layout_loading_spinner"
+        android:visibility="gone" />
 
     <include
         android:id="@+id/layout_not_found_username"
@@ -242,8 +245,7 @@
     <include
         android:id="@+id/layout_error_profile"
         layout="@layout/layout_error"
-        android:visibility="gone"
-      />
+        android:visibility="gone" />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

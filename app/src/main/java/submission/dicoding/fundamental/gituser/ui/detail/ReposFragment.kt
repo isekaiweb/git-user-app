@@ -66,17 +66,15 @@ class ReposFragment : Fragment() {
             val layoutEmpty = layoutEmpty.root
             val layoutError = binding?.layoutErrorRepo
             viewModel.detailTypeUser.observe(viewLifecycleOwner, { response ->
+                visibilityView(layoutLoading, false)
                 when (response) {
                     is Resource.Success -> {
                         response.data?.let { newResponse ->
                             repoAdapter.differ.submitList(newResponse)
                             if (repoAdapter.differ.currentList.size > 0) {
-                                visibilityView(layoutLoading, false)
                                 visibilityView(recyclerView, true)
                             } else {
                                 visibilityView(layoutEmpty, true)
-                                visibilityView(layoutLoading, false)
-                                visibilityView(recyclerView, false)
                             }
                         }
                     }
@@ -95,13 +93,12 @@ class ReposFragment : Fragment() {
                         layoutError?.btnTryAgain?.setOnClickListener {
                             getDetailTypeUser()
                         }
-                        visibilityView(layoutLoading, false)
-                        visibilityView(recyclerView, false)
                     }
                     is Resource.Loading -> {
                         visibilityView(recyclerView, false)
                         visibilityView(layoutLoading, true)
                         visibilityView(layoutError?.root, false)
+                        visibilityView(layoutEmpty, false)
                     }
                 }
             })

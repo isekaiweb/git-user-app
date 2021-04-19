@@ -64,7 +64,6 @@ class DetailFragment : Fragment() {
         setupTollBarTitle(args.username)
         setupDataView()
         setHasOptionsMenu(true)
-        setupDataView()
     }
 
     private fun setupDataView() {
@@ -73,11 +72,11 @@ class DetailFragment : Fragment() {
         viewModel.detailUser.observe(viewLifecycleOwner, { response ->
             binding?.apply {
                 val layoutLoading = layoutLoadingDetail.root
+                visibilityView(layoutLoading, false)
                 when (response) {
                     is Resource.Success -> {
                         response.data?.let { result ->
                             setupUI(result)
-                            visibilityView(layoutLoading, false)
                             visibilityAllViewData(true)
                             visibilityView(
                                 layoutBtnFavorite.root,
@@ -99,12 +98,11 @@ class DetailFragment : Fragment() {
                         layoutError?.btnTryAgain?.setOnClickListener {
                             viewModel.getUserDetail(args.username)
                         }
-                        visibilityView(layoutLoading, false)
                     }
                     is Resource.Loading -> {
+                        visibilityAllViewData(false)
                         visibilityView(layoutLoading, true)
                         visibilityView(layoutError?.root, false)
-                        visibilityAllViewData(false)
                     }
                 }
             }

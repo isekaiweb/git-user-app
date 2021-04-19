@@ -2,11 +2,14 @@ package submission.dicoding.fundamental.gituser.other
 
 import android.content.Context
 import android.icu.text.CompactDecimalFormat
+import android.view.KeyEvent
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.navigation.Navigation
+import com.google.android.material.textfield.TextInputEditText
 import submission.dicoding.fundamental.gituser.other.Constants.Companion.DESTINATION_PROFILE
 import submission.dicoding.fundamental.gituser.ui.detail.DetailFragmentDirections
 import submission.dicoding.fundamental.gituser.ui.profile.ProfileFragmentDirections
@@ -77,5 +80,16 @@ internal object Function {
         imm.hideSoftInputFromWindow(windowToken, 0)
     }
 
+    fun setOnPressEnter(
+        editText: TextInputEditText,
+        btn: View
+    ) {
+        editText.setOnEditorActionListener { _, actionId, event ->
+            if ((event != null && (event.keyCode == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE)) {
+                btn.performClick()
+            }
+            return@setOnEditorActionListener false
+        }
+    }
 
 }

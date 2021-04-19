@@ -1,7 +1,6 @@
 package submission.dicoding.fundamental.gituser.ui.profile
 
 import android.content.SharedPreferences
-import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +14,7 @@ import submission.dicoding.fundamental.gituser.databinding.FragmentProfileSettin
 import submission.dicoding.fundamental.gituser.other.Constants.Companion.KEY_IS_REMINDED
 import submission.dicoding.fundamental.gituser.other.Constants.Companion.KEY_USERNAME
 import submission.dicoding.fundamental.gituser.other.Function.hideKeyboard
+import submission.dicoding.fundamental.gituser.other.Function.setOnPressEnter
 import submission.dicoding.fundamental.gituser.receiver.AlarmReceiver
 import javax.inject.Inject
 
@@ -49,6 +49,7 @@ class ProfileSettingsFragment : Fragment() {
         val username = sharedPreferences.getString(KEY_USERNAME, "")
         binding?.apply {
             etUsernameProfileSetting.setText(username)
+            setOnPressEnter(etUsernameProfileSetting, btnChangeUsername)
             btnChangeUsername.setOnClickListener {
                 it.hideKeyboard()
                 val newUsername = etUsernameProfileSetting.text.toString()
@@ -64,6 +65,7 @@ class ProfileSettingsFragment : Fragment() {
             }
         }
     }
+
 
     private fun setupButtonBack() {
         binding?.btnBackProfileSettings?.setOnClickListener {

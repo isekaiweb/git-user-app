@@ -44,6 +44,8 @@
                     android:layout_width="@dimen/sizeAuto"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/spaceMax"
+                    android:ellipsize="end"
+                    android:maxLines="2"
                     android:textAllCaps="true"
                     android:textColor="@color/white"
                     android:textSize="@dimen/nameSize"
@@ -206,7 +208,9 @@
 
     <include
         android:id="@+id/layout_loading_detail"
-        layout="@layout/layout_loading_spinner" />
+        layout="@layout/layout_loading_spinner"
+        android:visibility="gone"
+        />
 
     <include
         android:id="@+id/layout_btn_favorite"
@@ -216,7 +220,6 @@
     <include
         android:id="@+id/layout_error_detail"
         layout="@layout/layout_error"
-        android:visibility="gone"
-        />
+        android:visibility="gone" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
