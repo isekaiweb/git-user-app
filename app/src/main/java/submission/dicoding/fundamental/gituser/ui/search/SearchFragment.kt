@@ -42,6 +42,7 @@ class SearchFragment : Fragment() {
     @Inject
     lateinit var sharedPreferences: SharedPreferences
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

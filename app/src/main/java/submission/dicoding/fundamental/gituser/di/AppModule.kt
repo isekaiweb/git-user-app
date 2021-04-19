@@ -63,27 +63,23 @@ internal object AppModule {
 
     @Singleton
     @Provides
-    @Named("username")
     fun provideUserName(sharedPref: SharedPreferences) =
         sharedPref.getString(KEY_USERNAME, "")
 
     @Singleton
     @Provides
-    @Named("firstTimeOpened")
     fun provideFirstTimeToggle(sharedPref: SharedPreferences) =
         sharedPref.getBoolean(KEY_FIRST_TIME_TOGGLE, true)
 
 
     @Singleton
     @Provides
-    @Named("reminder")
     fun provideIsReminded(sharedPref: SharedPreferences) =
         sharedPref.getBoolean(KEY_IS_REMINDED, false)
 
 
     @Singleton
     @Provides
-    @Named("lastSearch")
-    fun  provideLastSearch(sharedPref: SharedPreferences)=
-        sharedPref.getString(KEY_LAST_SEARCH,"A")
+    fun provideLastSearch(sharedPref: SharedPreferences) =
+        sharedPref.getString(KEY_LAST_SEARCH, "A")
 }
