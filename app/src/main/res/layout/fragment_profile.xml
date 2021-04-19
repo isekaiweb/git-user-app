@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:theme="@style/Theme.GitUser"
     android:layout_height="match_parent"
     android:background="@color/primary_black"
     tools:context=".ui.detail.DetailFragment">
@@ -12,7 +13,8 @@
         android:id="@+id/root_appbar_profile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        android:background="@color/primary_black"
+        >
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar_profile"
@@ -187,6 +189,7 @@
                         app:layout_collapseMode="pin"
                         app:layout_constraintEnd_toStartOf="@+id/btn_edit"
                         app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
                         tools:ignore="RtlCompat"
                         tools:text="@string/dummyUsername" />
 

@@ -13,6 +13,7 @@ import submission.dicoding.fundamental.gituser.R
 import submission.dicoding.fundamental.gituser.databinding.FragmentProfileSettingsBinding
 import submission.dicoding.fundamental.gituser.other.Constants.Companion.KEY_IS_REMINDED
 import submission.dicoding.fundamental.gituser.other.Constants.Companion.KEY_USERNAME
+import submission.dicoding.fundamental.gituser.other.Function.customColorPrimaryBlackSnackBar
 import submission.dicoding.fundamental.gituser.other.Function.hideKeyboard
 import submission.dicoding.fundamental.gituser.other.Function.setOnPressEnter
 import submission.dicoding.fundamental.gituser.receiver.AlarmReceiver
@@ -48,6 +49,7 @@ class ProfileSettingsFragment : Fragment() {
     private fun setupUsername() {
         val username = sharedPreferences.getString(KEY_USERNAME, "")
         binding?.apply {
+            var snackBar: Snackbar
             etUsernameProfileSetting.setText(username)
             setOnPressEnter(etUsernameProfileSetting, btnChangeUsername)
             btnChangeUsername.setOnClickListener {
@@ -57,12 +59,20 @@ class ProfileSettingsFragment : Fragment() {
                     sharedPreferences.edit()
                         .putString(KEY_USERNAME, newUsername)
                         .apply()
-                    Snackbar.make(it, "username has Changed", Snackbar.LENGTH_SHORT).show()
+                    snackBar = Snackbar.make(mainContainer, "username has Changed", Snackbar.LENGTH_SHORT)
+
+
                 } else {
-                    Snackbar.make(it, "Nothing Changed", Snackbar.LENGTH_SHORT).show()
+                    snackBar = Snackbar.make(
+                        mainContainer,
+                        "Nothing Changed",
+                        Snackbar.LENGTH_SHORT
+                    )
                     etUsernameProfileSetting.setText(username)
                 }
+                customColorPrimaryBlackSnackBar(snackBar, requireActivity())
             }
+
         }
     }
 
@@ -86,11 +96,11 @@ class ProfileSettingsFragment : Fragment() {
                     alarmReceiver.setRepeatingAlarm(
                         requireActivity(),
                         "09:00",
-                        "Github Reminder", this
+                        "Github Reminder", binding?.mainContainer!!
                     )
                     true
                 } else {
-                    alarmReceiver.cancelAlarm(requireActivity(), this)
+                    alarmReceiver.cancelAlarm(requireActivity(), binding?.mainContainer!!)
                     false
                 }
                 text =

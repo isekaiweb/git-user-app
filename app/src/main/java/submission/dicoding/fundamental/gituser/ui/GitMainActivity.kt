@@ -1,20 +1,14 @@
 package submission.dicoding.fundamental.gituser.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
-import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_git_main.*
-import kotlinx.android.synthetic.main.activity_git_main.view.*
 import submission.dicoding.fundamental.gituser.R
 import submission.dicoding.fundamental.gituser.databinding.ActivityGitMainBinding
 import submission.dicoding.fundamental.gituser.other.Function.visibilityView
-
 
 
 @AndroidEntryPoint

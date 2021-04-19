@@ -9,7 +9,9 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.navigation.Navigation
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
+import submission.dicoding.fundamental.gituser.R
 import submission.dicoding.fundamental.gituser.other.Constants.Companion.DESTINATION_PROFILE
 import submission.dicoding.fundamental.gituser.ui.detail.DetailFragmentDirections
 import submission.dicoding.fundamental.gituser.ui.profile.ProfileFragmentDirections
@@ -90,6 +92,13 @@ internal object Function {
             }
             return@setOnEditorActionListener false
         }
+    }
+
+    fun customColorPrimaryBlackSnackBar(snackBar: Snackbar, activity: Context) {
+        snackBar.view.setBackgroundColor(activity.getColor(R.color.secondary_black))
+        snackBar.setTextColor(activity.getColor(R.color.secondary_white))
+        snackBar.show()
+
     }
 
 }

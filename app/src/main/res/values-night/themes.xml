@@ -3,11 +3,12 @@
     <style name="Theme.GitUser" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/primary_black</item>
-        <item name="colorPrimaryVariant">@color/secondary_black</item>
+        <item name="colorPrimaryVariant">@color/ripple_black</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
         <item name="fontFamily">@font/montserrat</item>
+
     </style>
 </resources>

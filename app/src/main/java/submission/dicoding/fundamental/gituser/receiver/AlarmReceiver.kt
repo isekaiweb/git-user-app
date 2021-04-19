@@ -16,6 +16,7 @@ import submission.dicoding.fundamental.gituser.other.Constants
 import submission.dicoding.fundamental.gituser.other.Constants.Companion.NOTIFICATION_CHANNEL_ID
 import submission.dicoding.fundamental.gituser.other.Constants.Companion.NOTIFICATION_CHANNEL_NAME
 import submission.dicoding.fundamental.gituser.other.Constants.Companion.NOTIFICATION_ID
+import submission.dicoding.fundamental.gituser.other.Function.customColorPrimaryBlackSnackBar
 import submission.dicoding.fundamental.gituser.ui.GitMainActivity
 import java.util.*
 
@@ -95,7 +96,15 @@ class AlarmReceiver : BroadcastReceiver() {
             pendingIntent
         )
 
-        Snackbar.make(view, "Activate Alarm", Snackbar.LENGTH_SHORT).show()
+
+
+        customColorPrimaryBlackSnackBar(
+            Snackbar.make(
+                view,
+                "Activate Alarm",
+                Snackbar.LENGTH_SHORT
+            ), context
+        )
 
     }
 
@@ -113,7 +122,15 @@ class AlarmReceiver : BroadcastReceiver() {
         pendingIntent.cancel()
         alarmManager.cancel(pendingIntent)
 
-        Snackbar.make(view, "Canceled Alarm", Snackbar.LENGTH_SHORT).show()
+
+
+        customColorPrimaryBlackSnackBar(
+            Snackbar.make(
+                view,
+                "Canceled Alarm",
+                Snackbar.LENGTH_SHORT
+            ), context
+        )
     }
 
 }
