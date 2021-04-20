@@ -26,6 +26,7 @@ import submission.dicoding.fundamental.gituser.other.Constants.Companion.NETWORK
 import submission.dicoding.fundamental.gituser.other.Constants.Companion.NO_INTERNET_CONNECTION
 import submission.dicoding.fundamental.gituser.other.Function
 import submission.dicoding.fundamental.gituser.other.Function.hideKeyboard
+import submission.dicoding.fundamental.gituser.other.Function.isEmailValid
 import submission.dicoding.fundamental.gituser.other.Function.openInBrowser
 import submission.dicoding.fundamental.gituser.other.Function.setOnPressEnter
 import submission.dicoding.fundamental.gituser.other.Function.setVisibilityView
@@ -136,7 +137,7 @@ class ProfileFragment : Fragment() {
                 openInBrowser(data.html_url!!, requireView(), DESTINATION_PROFILE)
             }
 
-            if (Function.isEmailValid(data.email)) {
+            if (isEmailValid(data.email)) {
                 setVisibilityView(
                     data.email,
                     tvEmailProfile
