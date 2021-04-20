@@ -10,6 +10,9 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -17,6 +20,7 @@ import kotlinx.coroutines.launch
 import submission.dicoding.fundamental.gituser.databinding.FragmentFavoriteBinding
 import submission.dicoding.fundamental.gituser.models.UserDetail
 import submission.dicoding.fundamental.gituser.other.Constants.Companion.KEY_USERNAME
+import submission.dicoding.fundamental.gituser.other.Function.customColorPrimaryBlackSnackBar
 import submission.dicoding.fundamental.gituser.other.Function.visibilityView
 import submission.dicoding.fundamental.gituser.ui.adapters.FavoriteAdapter
 import javax.inject.Inject
@@ -46,6 +50,7 @@ class FavoriteFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupDataView()
         setupRecyclerView()
+        setupSwipeDelete()
     }
 
     private fun setupDataView() {
@@ -87,6 +92,42 @@ class FavoriteFragment : Fragment() {
             }
             layoutManager = GridLayoutManager(context, 2)
             adapter = favoriteAdapter
+        }
+    }
+
+
+    private fun setupSwipeDelete() {
+        val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(
+            ItemTouchHelper.UP or ItemTouchHelper.DOWN,
+            ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
+        ) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean = true
+
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val position = viewHolder.absoluteAdapterPosition
+                val user = favoriteAdapter.differ.currentList[position]
+                viewModel.deleteFavoriteUser(user)
+                val snackbar = Snackbar.make(
+                    binding?.mainContainerFav as View,
+                    "Remove ${user.name ?: user.login}",
+                    Snackbar.LENGTH_LONG
+                ).apply {
+                    setAction("undo") {
+                        viewModel.insertFavoriteUser(user)
+                    }
+                }
+
+                customColorPrimaryBlackSnackBar(snackbar, requireActivity())
+            }
+        }
+
+        ItemTouchHelper(itemTouchHelperCallback).apply {
+            attachToRecyclerView(binding?.rvUserFavorite)
         }
     }
 

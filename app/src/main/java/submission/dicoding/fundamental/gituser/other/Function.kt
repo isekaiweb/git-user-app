@@ -96,7 +96,8 @@ internal object Function {
 
     fun customColorPrimaryBlackSnackBar(snackBar: Snackbar, activity: Context) {
         snackBar.view.setBackgroundColor(activity.getColor(R.color.secondary_black))
-        snackBar.setTextColor(activity.getColor(R.color.secondary_white))
+        snackBar.setTextColor(activity.getColor(R.color.white))
+        snackBar.setActionTextColor(activity.getColor(R.color.blue_sky))
         snackBar.show()
 
     }

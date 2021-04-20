@@ -17,4 +17,7 @@ class FavoriteViewModel @Inject constructor(
         storeData.deleteFavoriteUser(user)
     }
 
+    fun insertFavoriteUser(user: UserDetail) = viewModelScope.launch {
+        storeData.insertFavoriteUser(user)
+    }
 }
