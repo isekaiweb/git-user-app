@@ -2,6 +2,7 @@ package submission.dicoding.fundamental.gituser.ui.detail
 
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -75,12 +76,12 @@ class DetailFragment : Fragment() {
                 when (response) {
                     is Resource.Success -> {
                         response.data?.let { result ->
-                            setupUI(result)
                             visibilityAllViewData(true)
                             visibilityView(
                                 layoutBtnFavorite.root,
                                 !result.login.equals(username, ignoreCase = true)
                             )
+                            setupUI(result)
                         }
                     }
                     is Resource.Error -> {
@@ -110,7 +111,6 @@ class DetailFragment : Fragment() {
 
 
     private fun setupUI(data: UserDetail) {
-
         setupDatabase(data)
         setupTabLayout(data)
         binding?.apply {
@@ -185,6 +185,7 @@ class DetailFragment : Fragment() {
 
         }
     }
+
 
 
     private fun setupDatabase(data: UserDetail) {

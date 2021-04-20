@@ -77,9 +77,9 @@ class ProfileFragment : Fragment() {
             when (response) {
                 is Resource.Success -> {
                     response.data?.let { result ->
-                        setupUI(result)
                         visibilityAllViewData(true)
                         viewModel.isProfileValid.postValue(true)
+                        setupUI(result)
                     }
 
 
