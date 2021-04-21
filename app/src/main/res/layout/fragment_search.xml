@@ -23,6 +23,7 @@
         android:layout_marginTop="@dimen/spaceSpecial"
         android:layout_marginBottom="@dimen/spaceMax"
         android:background="@drawable/bg_rounded"
+        android:foreground="@drawable/ripple_for_image_btn"
         android:elevation="@dimen/spaceMax"
         android:theme="@style/splashScreenTheme"
         app:defaultQueryHint="@string/hint_search"

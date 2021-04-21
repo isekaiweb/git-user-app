@@ -4,28 +4,52 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/ripple_black"
+    android:theme="@style/Theme.GitUser"
     tools:context=".ui.webview.WebViewFragment">
+
+    <TextView
+        android:id="@+id/tv_title_toolbar"
+        android:layout_width="@dimen/sizeAuto"
+        android:layout_height="?attr/actionBarSize"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="1"
+        android:text="@string/dummy_url"
+        android:textColor="@color/white"
+        android:layout_marginEnd="50dp"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ib_navigation"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/ib_navigation"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/ripple_for_image_btn"
+        android:contentDescription="@string/close"
+        android:src="@drawable/ic_close"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_title_toolbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <WebView
         android:id="@+id/webView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="@dimen/sizeAuto"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_title_toolbar" />
 
 
-    <ImageButton
-        android:id="@+id/btn_back"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="@dimen/spaceMax"
-        android:layout_marginTop="@dimen/paddingNormal"
-        android:background="@drawable/bg_circle_half_transparent"
-        android:contentDescription="@string/close"
-        android:src="@drawable/ic_close"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <include
+        android:id="@+id/layout_loading_web_view"
+        layout="@layout/layout_loading_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/sizeAuto"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title_toolbar" />
 </androidx.constraintlayout.widget.ConstraintLayout>

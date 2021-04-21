@@ -5,12 +5,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
 import submission.dicoding.fundamental.gituser.databinding.FragmentWebViewBinding
+import submission.dicoding.fundamental.gituser.other.Function.visibilityView
 
 
 @AndroidEntryPoint
@@ -33,8 +35,8 @@ class WebViewFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupWebView()
+        setupToolbar()
     }
-
 
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -44,16 +46,26 @@ class WebViewFragment : Fragment() {
                 webViewClient = WebViewClient()
                 settings.javaScriptEnabled = true
                 loadUrl(args.url)
-            }
 
-            btnBack.setOnClickListener {
-                findNavController()
-                    .popBackStack()
+                webViewClient = object : WebViewClient() {
+                    override fun onPageFinished(view: WebView, url: String) {
+                        visibilityView(layoutLoadingWebView.root, false)
+                    }
+                }
             }
         }
-
-
     }
+
+    private fun setupToolbar() {
+        binding?.apply {
+            ibNavigation.setOnClickListener {
+                findNavController().popBackStack()
+            }
+            tvTitleToolbar.text = args.url.replace("^https?://".toRegex(), "")
+
+        }
+    }
+
 
     override fun onDestroy() {
         super.onDestroy()

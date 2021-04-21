@@ -20,6 +20,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/splashScreenTheme"
+        android:usesCleartextTraffic="true"
         tools:ignore="AllowBackup">
 
         <provider
@@ -27,8 +28,7 @@
             android:authorities="submission.dicoding.fundamental.gituser"
             android:enabled="true"
             android:exported="true"
-            android:readPermission="submission.dicoding.fundamental.gituser.READ_DATABASE"
-           />
+            android:readPermission="submission.dicoding.fundamental.gituser.READ_DATABASE" />
 
         <receiver
             android:name=".receiver.AlarmReceiver"
