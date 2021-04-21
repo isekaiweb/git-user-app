@@ -33,13 +33,13 @@ class ReposAdapter(private val listener: (String) -> Unit) :
             binding.apply {
                 user.apply {
                     setVisibilityView(name, tvTitleRepo)
-                    setVisibilityView(forks_count?.let { converterNumber(it) }, tvFork)
+                    setVisibilityView(converterNumber(forks_count), tvFork)
                     setVisibilityView(description, tvDescription)
                     setVisibilityView(language, tvLanguage)
                     setVisibilityView(default_branch, tvBranch)
                     setVisibilityView(stargazers_count, tvStar)
                     setVisibilityView(watchers_count, tvWatcher)
-                    setVisibilityView(size?.let { converterSize(it) }, tvSize)
+                    setVisibilityView(converterSize(size), tvSize)
 
                     html_url?.let { url ->
                         containerRepoList.setOnClickListener {

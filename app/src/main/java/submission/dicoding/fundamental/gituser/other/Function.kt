@@ -9,6 +9,10 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.navigation.Navigation
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.request.RequestOptions
+import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import submission.dicoding.fundamental.gituser.R
@@ -99,7 +103,15 @@ internal object Function {
         snackBar.setTextColor(activity.getColor(R.color.white))
         snackBar.setActionTextColor(activity.getColor(R.color.blue_sky))
         snackBar.show()
+    }
 
+    fun ShapeableImageView.loadImage(url: String) {
+        Glide.with(this.context).load(url)
+            .centerCrop()
+            .apply(RequestOptions().override(500, 500))
+            .transition(DrawableTransitionOptions.withCrossFade())
+            .error(R.drawable.ic_user)
+            .into(this)
     }
 
 }

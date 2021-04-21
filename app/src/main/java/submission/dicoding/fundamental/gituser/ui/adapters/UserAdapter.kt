@@ -5,11 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import submission.dicoding.fundamental.gituser.R
 import submission.dicoding.fundamental.gituser.databinding.ModelUserListBinding
 import submission.dicoding.fundamental.gituser.models.UserDetail
+import submission.dicoding.fundamental.gituser.other.Function.loadImage
 
 
 class UserAdapter(private val listener: (String) -> Unit) :
@@ -33,15 +31,12 @@ class UserAdapter(private val listener: (String) -> Unit) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(user: UserDetail) {
             binding.apply {
-                Glide.with(itemView)
-                    .load(user.avatar_url)
-                    .centerCrop()
-                    .transition(DrawableTransitionOptions.withCrossFade())
-                    .error(R.drawable.ic_user)
-                    .into(imgAvatarHome)
-                tvUsernameHome.text = user.login
-                listContainer.setOnClickListener {
-                    user.login?.let { username -> listener(username) }
+                user.apply {
+                    imgAvatarHome.loadImage(avatar_url)
+                    tvUsernameHome.text = login
+                    listContainer.setOnClickListener {
+                        listener(login)
+                    }
                 }
             }
 

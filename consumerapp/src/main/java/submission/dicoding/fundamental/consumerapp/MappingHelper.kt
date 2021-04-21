@@ -10,13 +10,13 @@ object MappingHelper {
                 val id = getLong(getColumnIndexOrThrow(DatabaseContract.ConsumerUserColumns.ID))
                 val login =
                     getString(getColumnIndexOrThrow(DatabaseContract.ConsumerUserColumns.LOGIN))
-                val avatar_url =
+                val avatarUrl =
                     getString(getColumnIndexOrThrow(DatabaseContract.ConsumerUserColumns.AVATAR_URL))
                 val name =
                     getString(getColumnIndexOrThrow(DatabaseContract.ConsumerUserColumns.NAME))
 
                 consumer.add(
-                    ConsumerModel(id, login, avatar_url, name)
+                    ConsumerModel(id, login, avatarUrl, name)
                 )
             }
         }

@@ -10,8 +10,6 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,6 +25,7 @@ import submission.dicoding.fundamental.gituser.other.Constants.Companion.NO_INTE
 import submission.dicoding.fundamental.gituser.other.Function
 import submission.dicoding.fundamental.gituser.other.Function.hideKeyboard
 import submission.dicoding.fundamental.gituser.other.Function.isEmailValid
+import submission.dicoding.fundamental.gituser.other.Function.loadImage
 import submission.dicoding.fundamental.gituser.other.Function.openInBrowser
 import submission.dicoding.fundamental.gituser.other.Function.setOnPressEnter
 import submission.dicoding.fundamental.gituser.other.Function.setVisibilityView
@@ -44,7 +43,7 @@ class ProfileFragment : Fragment() {
 
     @Inject
     lateinit var sharedPreferences: SharedPreferences
-
+    private val username get() = sharedPreferences.getString(KEY_USERNAME, "")
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -58,9 +57,12 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val username = sharedPreferences.getString(KEY_USERNAME, "")
-        viewModel.getUserDetail(username!!)
-        binding?.tvUsername?.text = username
+        username?.let {
+            viewModel.getUserDetail(it)
+            binding?.tvUsername?.text = it
+        }
+
+
         visibilityAllViewData(false)
         setupDataView()
         setupBtnEdit()
@@ -71,7 +73,7 @@ class ProfileFragment : Fragment() {
         val layoutNotFound = binding?.layoutNotFoundUsername?.root
         val layoutLoading = binding?.layoutLoadingProfile?.root
         val layoutError = binding?.layoutErrorProfile
-        val username = sharedPreferences.getString(KEY_USERNAME, "")
+
         viewModel.detailUser.observe(viewLifecycleOwner, { response ->
             visibilityView(layoutLoading, false)
             when (response) {
@@ -115,79 +117,82 @@ class ProfileFragment : Fragment() {
     }
 
 
-    private fun setupUI(data: UserDetail) {
-        setupTabLayout(data)
+    private fun setupUI(user: UserDetail) {
+        setupTabLayout(user)
         binding?.apply {
-            Glide.with(requireView())
-                .load(data.avatar_url)
-                .centerCrop()
-                .transition(DrawableTransitionOptions.withCrossFade())
-                .error(R.drawable.ic_user)
-                .into(imgAvatarDetailProfile)
+            user.apply {
+                imgAvatarDetailProfile.loadImage(avatar_url)
 
-            setVisibilityView(data.name ?: data.login, tvNameDetailProfile)
-            setVisibilityView(data.company, tvCompanyProfile)
-            setVisibilityView(
-                data.location,
-                tvLocationProfile
-            )
-
-
-            btnGithubProfile.setOnClickListener {
-                openInBrowser(data.html_url!!, requireView(), DESTINATION_PROFILE)
-            }
-
-            if (isEmailValid(data.email)) {
+                setVisibilityView(name ?: login, tvNameDetailProfile)
+                setVisibilityView(company, tvCompanyProfile)
                 setVisibilityView(
-                    data.email,
-                    tvEmailProfile
+                    location,
+                    tvLocationProfile
                 )
-            } else {
-                visibilityView(tvEmailProfile, false)
-            }
-
-            tvBlogProfile.setOnClickListener {
-                openInBrowser(data.blog.toString(), requireView(), DESTINATION_PROFILE)
-            }
 
 
-            setVisibilityView(data.blog, tvBlogProfile)
-            val isCompanyAndLocationNull =
-                data.company.isNullOrEmpty() && data.location.isNullOrEmpty()
-            val isEmailAndBlogNull = data.blog.isNullOrEmpty() && data.email.isNullOrEmpty()
+                btnGithubProfile.setOnClickListener {
+                    html_url?.let { url -> openInBrowser(url, requireView(), DESTINATION_PROFILE) }
+                }
 
-
-
-
-            tvBlogProfile.setOnClickListener {
-                openInBrowser(data.blog!!, requireView(), DESTINATION_PROFILE)
-            }
-
-            if (layoutCollapseProfile.isExpanded) {
-                visibilityView(btnMoreProfile, false)
-            } else {
-
-                if (isCompanyAndLocationNull) {
-                    visibilityView(btnMoreProfile, false)
-                    if (!isEmailAndBlogNull) {
-                        layoutCollapseProfile.isExpanded = true
-                    } else {
-                        visibilityView(layoutCollapseProfile, false)
-                    }
+                if (isEmailValid(email)) {
+                    setVisibilityView(
+                        email,
+                        tvEmailProfile
+                    )
                 } else {
-                    if (!isEmailAndBlogNull) {
-                        visibilityView(btnMoreProfile, true)
-                        btnMoreProfile.setOnClickListener {
-                            visibilityView(it, false)
-                            layoutCollapseProfile.isExpanded = true
-                        }
+                    visibilityView(tvEmailProfile, false)
+                }
 
-                    } else {
-                        visibilityView(layoutCollapseProfile, false)
-                        visibilityView(btnMoreProfile, false)
+                tvBlogProfile.setOnClickListener {
+                    openInBrowser(blog.toString(), requireView(), DESTINATION_PROFILE)
+                }
+
+
+                setVisibilityView(blog, tvBlogProfile)
+                val isCompanyAndLocationNull =
+                    company.isNullOrEmpty() && location.isNullOrEmpty()
+                val isEmailAndBlogNull = blog.isNullOrEmpty() && email.isNullOrEmpty()
+
+
+
+
+                tvBlogProfile.setOnClickListener {
+                    blog?.let { result ->
+                        openInBrowser(
+                            result,
+                            requireView(),
+                            DESTINATION_PROFILE
+                        )
                     }
                 }
 
+                if (layoutCollapseProfile.isExpanded) {
+                    visibilityView(btnMoreProfile, false)
+                } else {
+
+                    if (isCompanyAndLocationNull) {
+                        visibilityView(btnMoreProfile, false)
+                        if (!isEmailAndBlogNull) {
+                            layoutCollapseProfile.isExpanded = true
+                        } else {
+                            visibilityView(layoutCollapseProfile, false)
+                        }
+                    } else {
+                        if (!isEmailAndBlogNull) {
+                            visibilityView(btnMoreProfile, true)
+                            btnMoreProfile.setOnClickListener {
+                                visibilityView(it, false)
+                                layoutCollapseProfile.isExpanded = true
+                            }
+
+                        } else {
+                            visibilityView(layoutCollapseProfile, false)
+                            visibilityView(btnMoreProfile, false)
+                        }
+                    }
+
+                }
             }
         }
 
@@ -233,17 +238,17 @@ class ProfileFragment : Fragment() {
     }
 
 
-    private fun setupTabLayout(data: UserDetail) {
+    private fun setupTabLayout(user: UserDetail) {
         val tabTitle = resources.getStringArray(R.array.tab_title)
-        val arrayCount = arrayOf(data.public_repos, data.followers, data.following)
+        val arrayCount = arrayOf(user.public_repos, user.followers, user.following)
 
         actionAdapter =
-            DetailPagerAdapter(requireActivity() as AppCompatActivity, data, DESTINATION_PROFILE)
+            DetailPagerAdapter(requireActivity() as AppCompatActivity, user, DESTINATION_PROFILE)
         binding?.apply {
             viewpagerProfile.adapter = actionAdapter
             TabLayoutMediator(tabProfile, viewpagerProfile) { tab, pos ->
                 tab.text =
-                    StringBuilder("${arrayCount[pos]?.let { Function.converterNumber(it) }}\n${tabTitle[pos]}")
+                    StringBuilder("${arrayCount[pos].let { Function.converterNumber(it) }}\n${tabTitle[pos]}")
             }.attach()
         }
     }

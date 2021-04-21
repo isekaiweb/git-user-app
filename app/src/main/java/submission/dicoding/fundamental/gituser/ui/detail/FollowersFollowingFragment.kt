@@ -31,23 +31,6 @@ class FollowersFollowingFragment : Fragment() {
     private lateinit var userAdapter: UserAdapter
     private val viewModel by viewModels<DetailViewModel>()
 
-    companion object {
-        fun setUpData(
-            userDetail: UserDetail?,
-            action: String,
-            currDestination: String?
-        ): FollowersFollowingFragment {
-            val fragment = FollowersFollowingFragment()
-            Bundle().also {
-                it.putString(EXTRA_DESTINATION, currDestination)
-                it.putParcelable(EXTRA_USER, userDetail)
-                it.putString(EXTRA_ACTION, action)
-                fragment.arguments = it
-            }
-            return fragment
-        }
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -147,5 +130,23 @@ class FollowersFollowingFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+
+    companion object {
+        fun setUpData(
+            userDetail: UserDetail?,
+            action: String,
+            currDestination: String?
+        ): FollowersFollowingFragment {
+            val fragment = FollowersFollowingFragment()
+            Bundle().also {
+                it.putString(EXTRA_DESTINATION, currDestination)
+                it.putParcelable(EXTRA_USER, userDetail)
+                it.putString(EXTRA_ACTION, action)
+                fragment.arguments = it
+            }
+            return fragment
+        }
     }
 }

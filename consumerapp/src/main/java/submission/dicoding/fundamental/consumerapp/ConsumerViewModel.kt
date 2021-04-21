@@ -14,7 +14,7 @@ class ConsumerViewModel(
     private var consumer = MutableLiveData<ArrayList<ConsumerModel>>()
 
     fun setConsumer(context: Context) {
-        var cursor = context.contentResolver.query(
+        val cursor = context.contentResolver.query(
             DatabaseContract.ConsumerUserColumns.CONTENT_URI,
             null,
             null,

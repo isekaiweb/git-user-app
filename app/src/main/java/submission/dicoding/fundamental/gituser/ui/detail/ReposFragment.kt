@@ -1,7 +1,6 @@
 package submission.dicoding.fundamental.gituser.ui.detail
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,22 +24,6 @@ class ReposFragment : Fragment() {
     private lateinit var repoAdapter: ReposAdapter
     private val viewModel by viewModels<DetailViewModel>()
 
-    companion object {
-        fun setUpData(
-            userDetail: UserDetail?,
-            action: String,
-            currDestination: String?
-        ): ReposFragment {
-            val fragment = ReposFragment()
-            Bundle().also {
-                it.putString(EXTRA_DESTINATION, currDestination)
-                it.putParcelable(Constants.EXTRA_USER, userDetail)
-                it.putString(Constants.EXTRA_ACTION, action)
-                fragment.arguments = it
-            }
-            return fragment
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -130,9 +113,26 @@ class ReposFragment : Fragment() {
 
     }
 
-
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+
+    companion object {
+        fun setUpData(
+            userDetail: UserDetail?,
+            action: String,
+            currDestination: String?
+        ): ReposFragment {
+            val fragment = ReposFragment()
+            Bundle().also {
+                it.putString(EXTRA_DESTINATION, currDestination)
+                it.putParcelable(Constants.EXTRA_USER, userDetail)
+                it.putString(Constants.EXTRA_ACTION, action)
+                fragment.arguments = it
+            }
+            return fragment
+        }
     }
 }

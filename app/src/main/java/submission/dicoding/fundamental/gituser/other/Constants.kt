@@ -25,11 +25,5 @@ abstract class Constants {
 
         const val KEY_LAST_SEARCH = "A"
         const val KEY_IS_REMINDED = "i don't know"
-        const val NOTIFICATION_CHANNEL_NAME = "no name"
-        const val NOTIFICATION_CHANNEL_ID = "alarm_channel"
-        const val NOTIFICATION_ID = 1
-        const val ID_REPEATING = 101
-
-
     }
 }

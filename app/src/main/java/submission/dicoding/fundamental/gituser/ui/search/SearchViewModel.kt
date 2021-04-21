@@ -65,10 +65,9 @@ class SearchViewModel @Inject constructor(
                 searchUser.postValue(Resource.Error(NO_INTERNET_CONNECTION))
             }
         } catch (e: Throwable) {
-            when (e) {
-                is IOException -> searchUser.postValue(Resource.Error(NETWORK_FAILURE))
-                else -> searchUser.postValue(Resource.Error(CONVERSION_ERROR))
-            }
+            if (e is IOException) {
+                searchUser.postValue(Resource.Error(NETWORK_FAILURE))
+            } else searchUser.postValue(Resource.Error(CONVERSION_ERROR))
         }
     }
 

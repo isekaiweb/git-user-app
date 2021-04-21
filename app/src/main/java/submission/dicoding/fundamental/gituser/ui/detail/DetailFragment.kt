@@ -2,7 +2,6 @@ package submission.dicoding.fundamental.gituser.ui.detail
 
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -13,8 +12,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -28,6 +25,7 @@ import submission.dicoding.fundamental.gituser.other.Constants.Companion.NETWORK
 import submission.dicoding.fundamental.gituser.other.Constants.Companion.NO_INTERNET_CONNECTION
 import submission.dicoding.fundamental.gituser.other.Function
 import submission.dicoding.fundamental.gituser.other.Function.isEmailValid
+import submission.dicoding.fundamental.gituser.other.Function.loadImage
 import submission.dicoding.fundamental.gituser.other.Function.openInBrowser
 import submission.dicoding.fundamental.gituser.other.Function.setVisibilityView
 import submission.dicoding.fundamental.gituser.other.Function.visibilityView
@@ -110,109 +108,104 @@ class DetailFragment : Fragment() {
     }
 
 
-    private fun setupUI(data: UserDetail) {
-        setupDatabase(data)
-        setupTabLayout(data)
+    private fun setupUI(user: UserDetail) {
+        setupDatabase(user)
+        setupTabLayout(user)
         binding?.apply {
-            Glide.with(requireView())
-                .load(data.avatar_url)
-                .centerCrop()
-                .transition(DrawableTransitionOptions.withCrossFade())
-                .error(R.drawable.ic_user)
-                .into(imgAvatarDetail)
+            user.apply {
+                imgAvatarDetail.loadImage(avatar_url)
 
-            setVisibilityView(data.name ?: data.login, tvNameDetail)
-            setVisibilityView(data.company, tvCompany)
-            setVisibilityView(
-                data.location,
-                tvLocation
-            )
-
-            btnGithub.setOnClickListener {
-                openInBrowser(data.html_url!!, requireView(), "")
-            }
-
-            if (isEmailValid(data.email)) {
+                setVisibilityView(name ?: login, tvNameDetail)
+                setVisibilityView(company, tvCompany)
                 setVisibilityView(
-                    data.email,
-                    tvEmail
+                    location,
+                    tvLocation
                 )
-            } else {
-                visibilityView(tvEmail, false)
-            }
 
-            tvBlog.setOnClickListener {
-                openInBrowser(data.blog.toString(), requireView(), "")
-            }
-
-
-            setVisibilityView(data.blog, tvBlog)
-            val isCompanyAndLocationNull =
-                data.company.isNullOrEmpty() && data.location.isNullOrEmpty()
-            val isEmailAndBlogNull = data.blog.isNullOrEmpty() && data.email.isNullOrEmpty()
-
-            tvBlog.setOnClickListener {
-                openInBrowser(data.blog!!, requireView(), "")
-            }
-
-            if (layoutCollapse.isExpanded) {
-                visibilityView(btnMore, false)
-            } else {
-
-                if (isCompanyAndLocationNull) {
-                    btnMore.visibility = View.GONE
-                    if (!isEmailAndBlogNull) {
-                        layoutCollapse.isExpanded = true
-                    } else {
-                        layoutCollapse.visibility = View.GONE
-                    }
-                } else {
-                    if (!isEmailAndBlogNull) {
-                        visibilityView(btnMore, true)
-                        btnMore.setOnClickListener {
-                            it.visibility = View.GONE
-                            layoutCollapse.isExpanded = true
-                        }
-
-                    } else {
-                        layoutCollapse.visibility = View.GONE
-                        btnMore.visibility = View.GONE
-                    }
+                btnGithub.setOnClickListener {
+                    html_url?.let { url -> openInBrowser(url, requireView(), "") }
                 }
 
+                if (isEmailValid(email)) {
+                    setVisibilityView(
+                        email,
+                        tvEmail
+                    )
+                } else {
+                    visibilityView(tvEmail, false)
+                }
+
+                tvBlog.setOnClickListener {
+                    openInBrowser(blog.toString(), requireView(), "")
+                }
+
+
+                setVisibilityView(blog, tvBlog)
+                val isCompanyAndLocationNull =
+                    company.isNullOrEmpty() && location.isNullOrEmpty()
+                val isEmailAndBlogNull = blog.isNullOrEmpty() && email.isNullOrEmpty()
+
+                tvBlog.setOnClickListener {
+                    blog?.let { result -> openInBrowser(result, requireView(), "") }
+                }
+
+                if (layoutCollapse.isExpanded) {
+                    visibilityView(btnMore, false)
+                } else {
+
+                    if (isCompanyAndLocationNull) {
+                        btnMore.visibility = View.GONE
+                        if (!isEmailAndBlogNull) {
+                            layoutCollapse.isExpanded = true
+                        } else {
+                            layoutCollapse.visibility = View.GONE
+                        }
+                    } else {
+                        if (!isEmailAndBlogNull) {
+                            visibilityView(btnMore, true)
+                            btnMore.setOnClickListener {
+                                it.visibility = View.GONE
+                                layoutCollapse.isExpanded = true
+                            }
+
+                        } else {
+                            layoutCollapse.visibility = View.GONE
+                            btnMore.visibility = View.GONE
+                        }
+                    }
+
+                }
             }
-
-
         }
     }
 
 
-
-    private fun setupDatabase(data: UserDetail) {
+    private fun setupDatabase(user: UserDetail) {
         var isAlreadyFavorite = false
-        val btnToggleFav = binding?.layoutBtnFavorite?.toggleFavorite
+        binding?.apply {
+            val btnToggleFav = layoutBtnFavorite.toggleFavorite
 
-        lifecycleScope.launch {
-            val count = viewModel.checkIfAlreadyFavorite(data.id!!)
-            if (count > 0) {
-                btnToggleFav?.isChecked = true
-                isAlreadyFavorite = true
-            } else {
-                btnToggleFav?.isChecked = false
-                isAlreadyFavorite = false
+            lifecycleScope.launch {
+                val count = viewModel.checkIfAlreadyFavorite(user.id)
+                if (count > 0) {
+                    btnToggleFav.isChecked = true
+                    isAlreadyFavorite = true
+                } else {
+                    btnToggleFav.isChecked = false
+                    isAlreadyFavorite = false
+                }
+            }
+
+            btnToggleFav.setOnClickListener {
+                isAlreadyFavorite = !isAlreadyFavorite
+                if (isAlreadyFavorite) {
+                    viewModel.insertFavoriteUser(user)
+                } else {
+                    viewModel.deleteFavoriteUser(user)
+                }
+                btnToggleFav.isChecked = isAlreadyFavorite
             }
         }
-
-        btnToggleFav?.setOnClickListener {
-            isAlreadyFavorite = !isAlreadyFavorite
-            if (isAlreadyFavorite) {
-                viewModel.insertFavoriteUser(data)
-            } else {
-                viewModel.deleteFavoriteUser(data)
-            }
-            btnToggleFav.isChecked = isAlreadyFavorite
-        }
-
     }
 
     private fun setupTollBarTitle(username: String) {
@@ -232,16 +225,16 @@ class DetailFragment : Fragment() {
     }
 
 
-    private fun setupTabLayout(data: UserDetail) {
+    private fun setupTabLayout(user: UserDetail) {
         val tabTitle = resources.getStringArray(R.array.tab_title)
-        val arrayCount = arrayOf(data.public_repos, data.followers, data.following)
+        val arrayCount = arrayOf(user.public_repos, user.followers, user.following)
 
-        actionAdapter = DetailPagerAdapter(requireActivity() as AppCompatActivity, data, "")
+        actionAdapter = DetailPagerAdapter(requireActivity() as AppCompatActivity, user, "")
         binding?.apply {
             viewpager.adapter = actionAdapter
             TabLayoutMediator(tab, viewpager) { tab, pos ->
                 tab.text =
-                    StringBuilder("${arrayCount[pos]?.let { Function.converterNumber(it) }}\n${tabTitle[pos]}")
+                    StringBuilder("${arrayCount[pos].let { Function.converterNumber(it) }}\n${tabTitle[pos]}")
             }.attach()
         }
     }

@@ -30,8 +30,4 @@ interface GitHubAPI {
     suspend fun searchUsers(
         @Query("q") query: String
     ): Response<UserResponse>
-
-
-
-
 }

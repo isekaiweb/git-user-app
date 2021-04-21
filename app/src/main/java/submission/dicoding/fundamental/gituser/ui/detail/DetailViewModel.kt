@@ -53,7 +53,6 @@ class DetailViewModel @Inject constructor(
     suspend fun checkIfAlreadyFavorite(id: Long) = storeData.checkIfAlreadyFavorite(id)
 
 
-
     private fun handleResponseGetDetailUser(response: Response<UserDetail>):
             Resource<UserDetail> {
         if (response.isSuccessful) {
@@ -79,10 +78,9 @@ class DetailViewModel @Inject constructor(
             }
 
         } catch (e: Throwable) {
-            when (e) {
-                is IOException -> detailUser.postValue(Resource.Error(NETWORK_FAILURE))
-                else -> detailUser.postValue(Resource.Error(CONVERSION_ERROR))
-            }
+            if (e is IOException) {
+                detailUser.postValue(Resource.Error(NETWORK_FAILURE))
+            } else detailUser.postValue(Resource.Error(CONVERSION_ERROR))
         }
     }
 
@@ -112,11 +110,11 @@ class DetailViewModel @Inject constructor(
             }
 
         } catch (e: Throwable) {
-            when (e) {
-                is IOException -> detailTypeUser.postValue(Resource.Error(NETWORK_FAILURE))
-                else -> detailTypeUser.postValue(Resource.Error(CONVERSION_ERROR))
-            }
+            if (e is IOException) {
+                detailTypeUser.postValue(Resource.Error(NETWORK_FAILURE))
+            } else detailTypeUser.postValue(Resource.Error(CONVERSION_ERROR))
         }
+
     }
 
 }

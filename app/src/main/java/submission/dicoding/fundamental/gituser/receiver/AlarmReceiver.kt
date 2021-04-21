@@ -1,26 +1,28 @@
 package submission.dicoding.fundamental.gituser.receiver
 
-import android.app.AlarmManager
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
+import android.app.*
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.media.RingtoneManager
 import android.os.Build
 import android.view.View
 import androidx.core.app.NotificationCompat
 import com.google.android.material.snackbar.Snackbar
 import submission.dicoding.fundamental.gituser.R
 import submission.dicoding.fundamental.gituser.other.Constants
-import submission.dicoding.fundamental.gituser.other.Constants.Companion.NOTIFICATION_CHANNEL_ID
-import submission.dicoding.fundamental.gituser.other.Constants.Companion.NOTIFICATION_CHANNEL_NAME
-import submission.dicoding.fundamental.gituser.other.Constants.Companion.NOTIFICATION_ID
 import submission.dicoding.fundamental.gituser.other.Function.customColorPrimaryBlackSnackBar
 import submission.dicoding.fundamental.gituser.ui.GitMainActivity
 import java.util.*
 
 class AlarmReceiver : BroadcastReceiver() {
+
+    companion object {
+        private const val NOTIFICATION_CHANNEL_NAME = "no name"
+        private const val NOTIFICATION_CHANNEL_ID = "alarm_channel"
+        private const val NOTIFICATION_ID = 1
+        private const val ID_REPEATING = 101
+    }
 
 
     override fun onReceive(context: Context?, intent: Intent?) {
@@ -32,8 +34,15 @@ class AlarmReceiver : BroadcastReceiver() {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
 
-        val pendingIntent =
-            PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+//        val pendingIntent =
+//            PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+
+        val pendingIntent = TaskStackBuilder.create(context).run {
+            addNextIntentWithParentStack(intent)
+            getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)
+        }
+
+
         val notificationManager =
             context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
@@ -42,6 +51,7 @@ class AlarmReceiver : BroadcastReceiver() {
             .setContentTitle("Reminder".toUpperCase(Locale.ROOT))
             .setContentText("Time to find someone")
             .setAutoCancel(true)
+            .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM))
             .setSmallIcon(R.drawable.ic_github)
 
 
@@ -82,18 +92,12 @@ class AlarmReceiver : BroadcastReceiver() {
         }
 
 
-        val pendingIntent = PendingIntent.getBroadcast(
-            context,
-            Constants.ID_REPEATING,
-            intent,
-            PendingIntent.FLAG_UPDATE_CURRENT
-        )
 
         alarmManager.setInexactRepeating(
             AlarmManager.RTC_WAKEUP,
             calendar.timeInMillis,
             AlarmManager.INTERVAL_DAY,
-            pendingIntent
+            createPendingIntent(context, intent)
         )
 
 
@@ -108,21 +112,18 @@ class AlarmReceiver : BroadcastReceiver() {
 
     }
 
+    private fun createPendingIntent(context: Context, intent: Intent): PendingIntent =
+        PendingIntent.getBroadcast(context, ID_REPEATING, intent, 0)
+
+
     fun cancelAlarm(context: Context, view: View) {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-
         val intent = Intent(context, AlarmReceiver::class.java)
-        val requestCode = Constants.ID_REPEATING
-        val pendingIntent = PendingIntent.getBroadcast(
-            context,
-            requestCode,
-            intent,
-            PendingIntent.FLAG_UPDATE_CURRENT
-        )
-        pendingIntent.cancel()
-        alarmManager.cancel(pendingIntent)
 
-
+        createPendingIntent(context, intent).apply {
+            cancel()
+            alarmManager.cancel(this)
+        }
 
         customColorPrimaryBlackSnackBar(
             Snackbar.make(

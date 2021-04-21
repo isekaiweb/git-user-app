@@ -6,11 +6,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import submission.dicoding.fundamental.gituser.R
 import submission.dicoding.fundamental.gituser.databinding.ModelUserFavListBinding
 import submission.dicoding.fundamental.gituser.models.UserDetail
+import submission.dicoding.fundamental.gituser.other.Function.loadImage
 
 class FavoriteAdapter(private val listener: (String) -> Unit) :
     RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>() {
@@ -34,12 +32,7 @@ class FavoriteAdapter(private val listener: (String) -> Unit) :
         fun bind(user: UserDetail) {
             binding.apply {
                 user.apply {
-                    Glide.with(itemView)
-                        .load(avatar_url)
-                        .transition(DrawableTransitionOptions.withCrossFade())
-                        .error(R.drawable.ic_user)
-                        .into(imgAvatarFav)
-
+                    imgAvatarFav.loadImage(avatar_url)
                     tvNameFav.text = name ?: login
                     tvUsernameFav.text = login
 

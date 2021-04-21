@@ -28,17 +28,6 @@ class UserConsumer : ContentProvider() {
         return hiltEntryPoint.userDao()
     }
 
-    companion object {
-        private const val AUTHORITY = "submission.dicoding.fundamental.gituser"
-        private const val ID_FAVORITE_USER_DATA = 1
-        val uriMatcher = UriMatcher(UriMatcher.NO_MATCH)
-
-
-        init {
-            uriMatcher.addURI(AUTHORITY, TABLE_NAME, ID_FAVORITE_USER_DATA)
-        }
-    }
-
 
     override fun onCreate(): Boolean = false
 
@@ -76,4 +65,16 @@ class UserConsumer : ContentProvider() {
         selectionArgs: Array<out String>?
     ): Int = 0
 
+
+
+    companion object {
+        private const val AUTHORITY = "submission.dicoding.fundamental.gituser"
+        private const val ID_FAVORITE_USER_DATA = 1
+        val uriMatcher = UriMatcher(UriMatcher.NO_MATCH)
+
+
+        init {
+            uriMatcher.addURI(AUTHORITY, TABLE_NAME, ID_FAVORITE_USER_DATA)
+        }
+    }
 }
