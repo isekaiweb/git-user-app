@@ -1,12 +1,12 @@
 # Final Submission Dicoding Academy Android Apps Fundamental (GitHub User)
-This apps i created for accomplish task from [Dicoding](https://www.dicoding.com/) on subject [BFFA](https://www.dicoding.com/academies/14), if you found this because you wanted to accomplish your final task from **Dicoding** also please use this as reference do not copy all of the code because it'll be counted as **Plagiarism**
+This apps i created for accomplish task from [Dicoding](https://www.dicoding.com/) on subject [BFFA](https://www.dicoding.com/academies/14) and i got 5 star of 5 you can see my certificate [here](https://www.dicoding.com/certificates/JMZVM8V7RZN9), by the way if you found my project because you wanted to accomplish your final task from **Dicoding** also please use this as reference do not copy all of the code or it'll be counted as **Plagiarism**
 
 ## About Apps
 i named this app *GitUser* 
 this apps like as the name it's about to find out GitHub user through [GitHub API](https://docs.github.com/en/rest)
 
 ### Warning 
-Before you clone you should create your own API KEY first, Because this project needed that KEY, if you don't know how to Generate and setup your API KEY GitHub you can visit [here](https://www.dicoding.com/blog/apa-itu-rate-limit-pada-github-api/) after that you can replace your API KEY in file *gradle.properties* and type API_KEY = "{YOUR API KEY}"
+Before you clone you should create your own API KEY first, this project needed that KEY, if you don't know how to Generate and setup your API KEY GitHub you can visit [here](https://www.dicoding.com/blog/apa-itu-rate-limit-pada-github-api/) after that you can replace your API KEY in file *gradle.properties* and type API_KEY = "{YOUR API KEY}"
 
 ### The End Point i use 
 - Search : [https://api.github.com/search/users?q={username}](https://api.github.com/search/users?q=isekaiweb) 
@@ -25,6 +25,7 @@ Before you clone you should create your own API KEY first, Because this project 
 - Profile (profile sets by username that user type)
 - Content Provider (it'll show the page from favorite users)
 - Dark Theme Only (i'm not provide light theme in this apps)
+- swipe able remove
 
 #### Plus
 - if username sets as profile's username it will can't set as user favorite and if already set as favorite it would remove automatically
@@ -58,20 +59,19 @@ if you want to see more detail you can simply visit the demo [here]()
 ## LICENSE
 
 ```
+Copyright © 2021 Abraham
 
-   Copyright © 2021 Abraham
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0
 
-        http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
 
 ```
 
