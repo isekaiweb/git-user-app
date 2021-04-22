@@ -1,5 +1,5 @@
 # Final Submission Dicoding Academy Android Apps Fundamental (GitHub User)
-This apps i created for accomplish task from [Dicoding](https://www.dicoding.com/) on subject [BFFA](https://www.dicoding.com/academies/14) and i got 5 star of 5 you can see my certificate [here](https://www.dicoding.com/certificates/JMZVM8V7RZN9), by the way if you found my project because you wanted to accomplish your final task from **Dicoding** also please use this as reference do not copy all of the code or it'll be counted as **Plagiarism**
+This apps i created for accomplish task from [Dicoding](https://www.dicoding.com/) on subject [BFAA](https://www.dicoding.com/academies/14) and i got 5 star of 5 you can see my certificate [here](https://www.dicoding.com/certificates/JMZVM8V7RZN9), by the way if you found my project because you wanted to accomplish your final task from **Dicoding** also please use this as reference do not copy all of the code or it'll be counted as **Plagiarism**
 
 ## About Apps
 i named this app *GitUser* 
@@ -54,7 +54,7 @@ Before you clone you should create your own API KEY first, this project needed t
 <img src="assets/flow_navigation.png" alt="flow"/>
 
 ## Demo
-if you want to see more detail you can simply visit the demo [here]()
+if you want to see more detail you can simply visit the demo [here](https://www.linkedin.com/posts/abrahambulyan_bffa-dicoding-mvvm-activity-6790825985085448193-S5V0)
 
 ## LICENSE
 
