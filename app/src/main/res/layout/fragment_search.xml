@@ -23,7 +23,6 @@
         android:layout_marginTop="@dimen/spaceSpecial"
         android:layout_marginBottom="@dimen/spaceMax"
         android:background="@drawable/bg_rounded"
-        android:foreground="@drawable/ripple_for_image_btn"
         android:elevation="@dimen/spaceMax"
         android:theme="@style/splashScreenTheme"
         app:defaultQueryHint="@string/hint_search"
@@ -33,7 +32,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title_search_fragment"
         app:searchIcon="@drawable/ic_search" />
-
     <include
         android:id="@+id/layout_list"
         layout="@layout/fragment_list"

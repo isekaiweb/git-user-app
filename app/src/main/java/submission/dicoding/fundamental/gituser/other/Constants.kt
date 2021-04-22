@@ -6,7 +6,7 @@ abstract class Constants {
         const val TABLE_NAME = "table_user"
 
         const val DELAY_SEARCH = 500L
-        const val DELAY_CLEAR_FOCUS = 2000L
+        const val DELAY_CHECK_DATA_EMPTY = 50L
 
 
         const val EXTRA_USER = "user"

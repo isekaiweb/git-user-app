@@ -45,13 +45,8 @@ class SetupFragment : Fragment() {
         val isFirstAppOpen = sharedPreferences.getBoolean(KEY_FIRST_TIME_TOGGLE, true)
 
         if (!isFirstAppOpen) {
-            val navOptions = NavOptions.Builder()
-                .setPopUpTo(R.id.setupFragment, true)
-                .build()
             findNavController().navigate(
-                R.id.action_setupFragment_to_searchFragment,
-                savedInstanceState,
-                navOptions
+                R.id.action_setupFragment_to_searchFragment
             )
         }
 
@@ -63,7 +58,9 @@ class SetupFragment : Fragment() {
                 if (success) {
                     lifecycleScope.launch {
                         delay(DELAY_SEARCH)
-                        findNavController().navigate(SetupFragmentDirections.actionSetupFragmentToSearchFragment())
+                        findNavController().navigate(
+                            R.id.action_setupFragment_to_searchFragment
+                        )
                     }
                 } else {
                     Snackbar.make(

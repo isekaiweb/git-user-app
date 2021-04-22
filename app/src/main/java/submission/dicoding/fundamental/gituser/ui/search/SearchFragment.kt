@@ -4,6 +4,7 @@ package submission.dicoding.fundamental.gituser.ui.search
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,7 +22,6 @@ import submission.dicoding.fundamental.gituser.R
 import submission.dicoding.fundamental.gituser.api.Resource
 import submission.dicoding.fundamental.gituser.databinding.FragmentSearchBinding
 import submission.dicoding.fundamental.gituser.other.Constants.Companion.CONVERSION_ERROR
-import submission.dicoding.fundamental.gituser.other.Constants.Companion.DELAY_CLEAR_FOCUS
 import submission.dicoding.fundamental.gituser.other.Constants.Companion.DELAY_SEARCH
 import submission.dicoding.fundamental.gituser.other.Constants.Companion.KEY_LAST_SEARCH
 import submission.dicoding.fundamental.gituser.other.Constants.Companion.NETWORK_FAILURE
@@ -74,6 +74,7 @@ class SearchFragment : Fragment() {
             when (response) {
                 is Resource.Success -> {
                     response.data?.let { newResponse ->
+                        handleDataEmpty(newResponse.items.size)
                         userAdapter.differ.submitList(newResponse.items)
                         visibilityView(recyclerView, true)
                     }
@@ -102,6 +103,7 @@ class SearchFragment : Fragment() {
                     visibilityView(layoutError?.root, false)
                 }
             }
+
         })
     }
 
@@ -109,6 +111,7 @@ class SearchFragment : Fragment() {
     private fun setupSearchUser() {
         var job: Job? = null
         val lastQuery = sharedPreferences.getString(KEY_LAST_SEARCH, "A")
+        val recyclerView = binding?.layoutList?.rvList
         binding?.svUsers?.apply {
             setQuery(lastQuery, true)
             setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -118,27 +121,14 @@ class SearchFragment : Fragment() {
 
                 override fun onQueryTextChange(newText: String?): Boolean {
                     job?.cancel()
-                    val layoutLoading = binding?.layoutList?.loadingList?.root
-                    val recyclerView = binding?.layoutList?.rvList
-                    val layoutEmpty = binding?.layoutNotFoundSearch?.root
                     if (newText != null && newText.isNotEmpty()) {
                         job = lifecycleScope.launch(Dispatchers.Main) {
                             delay(DELAY_SEARCH)
                             recyclerView?.scrollToPosition(0)
                             viewModel.userSearch(newText)
-                            delay(DELAY_CLEAR_FOCUS)
-                            if (userAdapter.differ.currentList.size < 1) {
-                                visibilityView(layoutLoading, false)
-                                visibilityView(recyclerView, false)
-                                visibilityView(layoutEmpty, true)
-                            }
-                            clearFocus()
                         }
 
-                    } else {
-                        clearFocus()
                     }
-
 
                     return true
                 }
@@ -155,6 +145,20 @@ class SearchFragment : Fragment() {
             setHasFixedSize(false)
             adapter = userAdapter
 
+        }
+    }
+
+    private fun handleDataEmpty(size: Int) {
+        val layoutLoading = binding?.layoutList?.loadingList?.root
+        val recyclerView = binding?.layoutList?.rvList
+        val layoutEmpty = binding?.layoutNotFoundSearch?.root
+
+
+        if (size < 1) {
+            requireView().hideKeyboard()
+            visibilityView(layoutLoading, false)
+            visibilityView(recyclerView, false)
+            visibilityView(layoutEmpty, true)
         }
     }
 

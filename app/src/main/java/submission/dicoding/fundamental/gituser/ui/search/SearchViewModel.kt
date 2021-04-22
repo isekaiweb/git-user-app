@@ -28,6 +28,11 @@ class SearchViewModel @Inject constructor(
 
     val searchUser: MutableLiveData<Resource<UserResponse>> = MutableLiveData()
     private var searchUserResponse: UserResponse? = null
+     val countData: MutableLiveData<Long> =
+        MutableLiveData()
+
+
+
     var newSearchQuery: String? = null
     private var oldSearchQuery: String? = null
 
@@ -37,7 +42,7 @@ class SearchViewModel @Inject constructor(
 
     init {
         val lastSearch = sharedPreferences.getString(KEY_LAST_SEARCH, "A")
-        userSearch(lastSearch!!)
+        lastSearch?.let { userSearch(it) }
     }
 
     private fun handleResponseSearchUser(response: Response<UserResponse>): Resource<UserResponse> {
