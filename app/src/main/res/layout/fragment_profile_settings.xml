@@ -15,6 +15,7 @@
         <ImageButton
             android:id="@+id/btn_back_profile_settings"
             android:layout_width="50dp"
+            android:layout_marginStart="@dimen/paddingMin"
             android:layout_height="@dimen/sizeAuto"
             android:background="@drawable/ripple_for_image_btn"
             android:contentDescription="@string/back"
