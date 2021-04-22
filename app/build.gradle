@@ -114,7 +114,4 @@ dependencies {
     //smooth loader by https://github.com/nntuyen/mkloader
     implementation 'com.tuyenmonkey:mkloader:1.4.0'
 
-    // AndroidX Browser Library
-    implementation "androidx.browser:browser:1.3.0"
-
 }

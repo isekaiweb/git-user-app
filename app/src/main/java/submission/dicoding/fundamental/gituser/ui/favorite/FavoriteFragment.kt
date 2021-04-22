@@ -112,7 +112,7 @@ class FavoriteFragment : Fragment() {
                 val position = viewHolder.absoluteAdapterPosition
                 val user = favoriteAdapter.differ.currentList[position]
                 viewModel.deleteFavoriteUser(user)
-                val snackbar = Snackbar.make(
+                val sb = Snackbar.make(
                     binding?.mainContainerFav as View,
                     "Remove ${user.name ?: user.login}",
                     Snackbar.LENGTH_LONG
@@ -122,7 +122,7 @@ class FavoriteFragment : Fragment() {
                     }
                 }
 
-                customColorPrimaryBlackSnackBar(snackbar, requireActivity())
+                customColorPrimaryBlackSnackBar(sb, requireActivity())
             }
         }
 

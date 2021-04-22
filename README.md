@@ -50,7 +50,7 @@ Before you clone you should create your own API KEY first, this project needed t
 <img src="assets/kotlin.png" alt="kotlin"/>
 <img src="assets/jetpack.png" alt="jetpack"/>
 
-## Navigation Flow Apps
+## Flow Navigation App
 <img src="assets/flow_navigation.png" alt="flow"/>
 
 ## Demo
