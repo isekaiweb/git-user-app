@@ -28,9 +28,6 @@ class SearchViewModel @Inject constructor(
 
     val searchUser: MutableLiveData<Resource<UserResponse>> = MutableLiveData()
     private var searchUserResponse: UserResponse? = null
-     val countData: MutableLiveData<Long> =
-        MutableLiveData()
-
 
 
     var newSearchQuery: String? = null

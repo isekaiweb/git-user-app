@@ -27,6 +27,8 @@ class DetailViewModel @Inject constructor(
     val detailUser: MutableLiveData<Resource<UserDetail>> = MutableLiveData()
     private var detailUserResponse: UserDetail? = null
 
+    private var oldUsername: String? = null
+    var newUsername: String? = null
 
     val detailTypeUser: MutableLiveData<Resource<List<UserDetail>>> = MutableLiveData()
     private var detailTypeUserResponse: List<UserDetail>? = null
@@ -57,7 +59,10 @@ class DetailViewModel @Inject constructor(
             Resource<UserDetail> {
         if (response.isSuccessful) {
             response.body()?.let { result ->
-                if (detailUserResponse == null) {
+                if (detailUserResponse == null || !newUsername.toString()
+                        .equals(oldUsername, ignoreCase = true)
+                ) {
+                    oldUsername = newUsername
                     detailUserResponse = result
                 }
                 return Resource.Success(detailUserResponse ?: result)
@@ -68,6 +73,7 @@ class DetailViewModel @Inject constructor(
 
 
     private suspend fun safeGetDetailUser(username: String) {
+        newUsername = username
         detailUser.postValue(Resource.Loading())
         try {
             if (hasInternetConnection()) {

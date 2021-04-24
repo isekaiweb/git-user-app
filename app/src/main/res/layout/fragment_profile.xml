@@ -182,11 +182,11 @@
                         android:textAlignment="textStart"
                         android:textColor="@color/white"
                         android:textSize="@dimen/title_fragment"
-
+                        android:paddingStart="@dimen/paddingNormal"
                         app:layout_constraintEnd_toStartOf="@+id/btn_edit"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        tools:ignore="RtlCompat"
+                        tools:ignore="RtlCompat,RtlSymmetry"
                         tools:text="@string/dummyUsername" />
 
                     <ImageButton

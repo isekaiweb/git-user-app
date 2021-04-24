@@ -54,12 +54,16 @@ class FavoriteFragment : Fragment() {
     }
 
     private fun setupDataView() {
-
+        val username = sharedPreferences.getString(KEY_USERNAME, "")
         viewModel.getAllUserFavorite.observe(viewLifecycleOwner, { response ->
-            val index = searchIndex(response)
-            if (index >= 0) {
-                viewModel.deleteFavoriteUser(response[index])
-            }
+
+            response.find { userDetail -> userDetail.login.equals(username, ignoreCase = true) }
+                ?.also {
+                    viewModel.deleteFavoriteUser(it)
+                }
+
+
+
             favoriteAdapter.differ.submitList(response)
             lifecycleScope.launch(Dispatchers.Main) {
                 delay(200L)

@@ -24,6 +24,7 @@ import submission.dicoding.fundamental.gituser.other.Constants.Companion.KEY_USE
 import submission.dicoding.fundamental.gituser.other.Constants.Companion.NETWORK_FAILURE
 import submission.dicoding.fundamental.gituser.other.Constants.Companion.NO_INTERNET_CONNECTION
 import submission.dicoding.fundamental.gituser.other.Function
+import submission.dicoding.fundamental.gituser.other.Function.hideKeyboard
 import submission.dicoding.fundamental.gituser.other.Function.isEmailValid
 import submission.dicoding.fundamental.gituser.other.Function.loadImage
 import submission.dicoding.fundamental.gituser.other.Function.openInBrowser

@@ -25,9 +25,9 @@ class ProfileSettingsFragment : Fragment() {
     private val binding get() = _binding
     private var alarmReceiver = AlarmReceiver()
 
-
     @Inject
     lateinit var sharedPreferences: SharedPreferences
+    private val username get() = sharedPreferences.getString(KEY_USERNAME, "")
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,20 +47,16 @@ class ProfileSettingsFragment : Fragment() {
 
 
     private fun setupUsername() {
-        val username = sharedPreferences.getString(KEY_USERNAME, "")
         binding?.apply {
             var snackBar: Snackbar
             etUsernameProfileSetting.setText(username)
             setOnPressEnter(etUsernameProfileSetting, btnChangeUsername)
             btnChangeUsername.setOnClickListener {
                 it.hideKeyboard()
-                val newUsername = etUsernameProfileSetting.text.toString()
-                if (newUsername.isNotEmpty() && newUsername != username) {
-                    sharedPreferences.edit()
-                        .putString(KEY_USERNAME, newUsername)
-                        .apply()
-                    snackBar = Snackbar.make(mainContainer, "username has Changed", Snackbar.LENGTH_SHORT)
-
+                val success = saveUsernameToSharedPref()
+                if (success) {
+                    snackBar =
+                        Snackbar.make(mainContainer, "username has Changed", Snackbar.LENGTH_SHORT)
 
                 } else {
                     snackBar = Snackbar.make(
@@ -77,9 +73,24 @@ class ProfileSettingsFragment : Fragment() {
     }
 
 
+    private fun saveUsernameToSharedPref(): Boolean {
+        binding?.apply {
+            val newUsername = etUsernameProfileSetting.text.toString()
+            if (newUsername.isEmpty() || newUsername.equals(username, ignoreCase = true)) {
+                return false
+            }
+            sharedPreferences.edit()
+                .putString(KEY_USERNAME, newUsername)
+                .apply()
+        }
+        return true
+    }
+
+
     private fun setupButtonBack() {
         binding?.btnBackProfileSettings?.setOnClickListener {
-            findNavController().navigate(R.id.action_global_profileFragment)
+            requireView().hideKeyboard()
+            findNavController().popBackStack()
         }
     }
 
@@ -96,11 +107,11 @@ class ProfileSettingsFragment : Fragment() {
                     alarmReceiver.setRepeatingAlarm(
                         requireActivity(),
                         "09:00",
-                        "Github Reminder", binding?.mainContainer!!
+                        "Github Reminder", binding?.mainContainer as View
                     )
                     true
                 } else {
-                    alarmReceiver.cancelAlarm(requireActivity(), binding?.mainContainer!!)
+                    alarmReceiver.cancelAlarm(requireActivity(), binding?.mainContainer as View)
                     false
                 }
                 text =
@@ -109,12 +120,6 @@ class ProfileSettingsFragment : Fragment() {
             }
         }
 
-    }
-
-
-    override fun onPause() {
-        findNavController().navigate(R.id.action_global_profileFragment)
-        super.onPause()
     }
 
 

@@ -101,7 +101,7 @@ class ProfileFragment : Fragment() {
                             }
                         }
                         layoutError?.btnTryAgain?.setOnClickListener {
-                            username?.let { username -> viewModel.getUserDetail(username) }
+                            viewModel.newUsername?.let { username -> viewModel.getUserDetail(username) }
                         }
                     }
                 }

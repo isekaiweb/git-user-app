@@ -44,30 +44,15 @@ class GitMainActivity : AppCompatActivity() {
 
 
         binding.menuBottom.onItemSelected = {
-           when(it){
-               0 -> navController.navigate(R.id.action_global_searchFragment)
-               1 -> navController.navigate(R.id.action_global_favoriteFragment)
-               2 -> navController.navigate(R.id.action_global_profileFragment)
-           }
-        }
-
-
-        navController.addOnDestinationChangedListener { _, destination, _ ->
-            visibilityView(
-                binding.menuBottom,
-                when (destination.id) {
-                    R.id.setupFragment -> false
-                    else -> true
-                }
-
-            )
+            when (it) {
+                0 -> navController.navigate(R.id.action_global_searchFragment)
+                1 -> navController.navigate(R.id.action_global_favoriteFragment)
+                2 -> navController.navigate(R.id.action_global_profileFragment)
+            }
         }
 
         return true
     }
-
-
-
 
 
 }

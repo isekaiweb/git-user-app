@@ -171,12 +171,8 @@ class SearchFragment : Fragment() {
         super.onConfigurationChanged(newConfig)
     }
 
-    override fun onPause() {
-        binding?.svUsers?.hideKeyboard()
-        super.onPause()
-    }
-
     private fun moveToDetail(username: String) {
+        requireView().hideKeyboard()
         findNavController().navigate(
             SearchFragmentDirections.actionSearchFragmentToDetailFragment(username)
         )
