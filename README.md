@@ -54,7 +54,7 @@ Before you clone you should create your own API KEY first, this project needed t
 <img src="assets/flow_navigation.png" alt="flow"/>
 
 ## Demo
-if you want to see more detail you can simply visit the demo [here](https://www.linkedin.com/posts/abrahambulyan_bffa-dicoding-mvvm-activity-6790825985085448193-S5V0)
+![](https://github.com/isekaiweb/isekaiweb.github.io/blob/main/assets/gituser.gif)
 
 ## LICENSE
 
